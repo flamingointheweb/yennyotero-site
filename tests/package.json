@@ -1,0 +1,11 @@
+{
+  "name": "yennyotero-site",
+  "private": true,
+  "description": "Portfolio site for yennyotero.com. Static HTML, no build step.",
+  "scripts": {
+    "test": "node site.test.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}
