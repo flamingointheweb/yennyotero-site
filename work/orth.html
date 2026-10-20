@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AI-native design and building, Yenny Otero</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="REPLACE_WITH_UMAMI_ID"></script>
+<script defer src="/a.js"></script>
+<meta name="description" content="One person taking a problem from the field to a shipped feature, with AI as a pair: the loop, run on a product I built and run myself.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<div class="bar"><div class="wrap wide">
+  <a class="mark" href="../index.html">Yenny Otero</a>
+  <nav>
+    <a href="../index.html#work">Work</a>
+    <a href="../index.html#code" class="hideSm">Built in code</a>
+    <a href="../index.html#about" class="hideSm">About</a>
+    <a href="../Yenny-Otero-CV.pdf" class="cta">CV, PDF</a>
+  </nav>
+</div></div>
+<div class="wrap">
+<a class="back" href="../index.html#work">&larr; All work</a>
+<h1>From the problem to a shipped feature, by one person</h1>
+<p class="stand">I wrote this page for the AI-native designer/builder role at ORTH. It follows the loop the role describes: find the problem, prototype it for real, test it with people, define what ships, and measure. I ran that loop on a product I designed, built and run myself, with Claude as my pair.</p>
+<dl class="meta"><div><dt>For</dt><dd>AI-native Product Designer, ORTH</dd></div><div><dt>Based</dt><dd>London, UK/EU remote</dd></div><div><dt>Updated</dt><dd>October 2026</dd></div></dl>
+<div class="stats" style="--n:4"><div class="stat"><b>~1,580 commits</b><span>443 merged PRs and 122 routes in five months, solo</span></div><div class="stat"><b>325 reviews</b><span>translated on demand with Claude, for under one euro</span></div><div class="stat"><b>86 colour pairs</b><span>contrast-tested on every pull request</span></div><div class="stat"><b>344 arrivals</b><span>checked in over two afternoons with NFC wristbands</span></div></div>
+
+<section>
+<div class="head"><span class="lab">The short answer</span></div>
+<h2>What I built with AI in the last few months, and what it changed.</h2>
+<p>I designed and built Bachata Connect, a multi-role platform for my festival, solo with Claude and AI coding agents: strict TypeScript, CI that blocks failing typechecks, a Playwright test harness, and Claude running in production.</p>
+<p>It changed how the event ran. Recommended classes sold at twice the rate, and 65% of buyers added extras. NFC wristband check-in replaced a 20-minute manual registration for 344 arrivals. Only 38% of holders used the wristband, so I changed its job rather than defend it. I also tested a noticeboard with users, saw it was not used, and removed it.</p>
+<p class="note-sm">See it running: <a href="https://vimeo.com/1227739945">a two-minute walkthrough</a>, the <a href="bachata-connect.html">full case study</a>, and the <a href="https://design-system-showcase-sage.vercel.app">live design system</a>. I am happy to walk through the main codebase live.</p>
+<div class="hero-img shot"><img src="../img/bc-app-home.webp" alt="The Bachata Connect home screen: the people you met, courses in progress and upcoming events."></div>
+</section>
+
+<section>
+<div class="head"><span class="lab">The loop</span></div>
+<h2>Find it, prototype it, test it, decide what ships, read the numbers.</h2>
+<div class="steps">
+<div class="step"><span class="n">01</span><div><h3>Find the problem, and read the data myself</h3><p>The registration desk took about twenty minutes a person, and the week ran on spreadsheets, forms and WhatsApp. After the event, the feedback dashboard said 45 people had answered the survey. I knew more had. The database returns at most 1,000 rows per request, and with 2,291 answers the dashboard had silently cut off the rest. The real count was 72. Now every admin view pages through every row.</p></div></div>
+<div class="step"><span class="n">02</span><div><h3>Prototype it for real</h3><p>I design in the browser. Each feature starts as two or three options side by side. I pick one, write down why, and it becomes components, tests and a pull request. Claude Code writes much of the implementation, inside guardrails I set: design tokens it cannot bypass, tests it has to pass, and nothing deploys without my OK.</p></div></div>
+<div class="step"><span class="n">03</span><div><h3>Design the agentic moments, not only screens</h3><p>Expert feedback on dancers is written in Spanish, and most of the dancers reading it do not speak Spanish. Now each one reads their review in their own language, translated on demand, and 325 reviews cost under one euro. Claude also turns class discussions into a digest for each teaching artist.</p></div></div>
+<div class="step"><span class="n">04</span><div><h3>Test with real people and kill what does not work</h3><p>The first version had a noticeboard for shared rooms and lifts. After testing it with people, I removed it. The wristband was meant to be a social habit, but 38% of holders tapped someone, and taps fell from 139 on day one to 35 on day seven. So I let the band be the moment you arrive and moved finding people again to the directory, where 56 contacts were saved against 2 taps.</p></div></div>
+<div class="step"><span class="n">05</span><div><h3>Define what ships</h3><p>Quality is written into the build, not left to review. Every pull request runs a typecheck, Playwright drives the critical journeys, and 86 colour pairs are checked for contrast, so a failing colour cannot ship. A missing translation is a type error, not a blank button.</p></div></div>
+</div>
+<div class="pair"><figure><img src="../img/bc-noticeboard-v1.webp" alt="The first version of the Connect tab: a noticeboard with posts about shared rooms and taxis."><figcaption>The noticeboard I removed after testing. Names blurred.</figcaption></figure><figure><img src="../img/wristbands.webp" alt="Two Bachata Connect NFC wristbands, one purple co-branded with Pulse and one black."><figcaption>The wristband, which found its real job at the door.</figcaption></figure></div>
+</section>
+
+<section>
+<div class="head"><span class="lab">Systems and craft</span></div>
+<h2>A design system that lives in code and stays in sync with design.</h2>
+<p>Three brands share one component library, so adding a teaching artist is a data change, not a rebuild. Colours are named by their job, and an artist can have their own palette but not an unreadable one. Figma has been a daily tool for me for years, at TSB and Amplifon. At TSB I built the design system and the team around it. Today my system lives in code, with tokens that design and engineering both use.</p>
+<figure><img src="../img/three-sites.webp" alt="Three artist websites side by side, each in a completely different brand."><figcaption>Three brands, one component library.</figcaption></figure>
+<p class="note-sm">The design system is public: <a href="https://github.com/flamingointheweb/design-system-showcase">github.com/flamingointheweb/design-system-showcase</a>.</p>
+</section>
+
+<section>
+<div class="head"><span class="lab">Growers and the field</span></div>
+<h2>I work in Spanish, and I like being where the users are.</h2>
+<ul class="plain">
+<li><strong>Spanish is my first language.</strong> One of my artist sites is in Spanish all the way down, and the reviews in my product are translated into each reader&rsquo;s own language.</li>
+<li><strong>I have worked on agriculture software.</strong> I advised a soil-sensing robotics company on the interface its farmers use and on how to test it with them.</li>
+<li><strong>I get close to the people I design for.</strong> On Amplifon I spent time with hearing aid specialists and their customers, found that the brief was not an app, and redefined it. The result won six international awards.</li>
+<li><strong>I would love the field time.</strong> Visiting growers is the part of the job I would look forward to most.</li>
+</ul>
+</section>
+
+<section>
+<div class="head"><span class="lab">Why hire me</span></div>
+<h2>One person, the whole loop, and the numbers to show for it.</h2>
+<ul class="plain">
+<li><strong>I take a problem from the user to a running feature.</strong> Discovery, design, code, tests and measurement are all mine, and I can show them running.</li>
+<li><strong>I use AI as my primary way of building, with guardrails.</strong> I decide what is right, and I check it.</li>
+<li><strong>I have led teams and standards.</strong> Zero to 17 at TSB, with a design system and customer testing as a habit, so I can run a squad as well as build in it.</li>
+<li><strong>I change my mind when the evidence says so.</strong> I cut the noticeboard and repurposed the wristband.</li>
+</ul>
+<p>I would be glad to share my screen and walk you through it live.</p>
+</section>
+</div>
+<div class="next"><div class="wrap wide"><a href="bachata-connect.html"><span class="lab">Read next</span><h2>Bachata Connect</h2></a></div></div>
+<footer><div class="wrap wide"><span>Yenny Otero, London</span><span><a href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a></span></div></footer>
+</body>
+</html>
