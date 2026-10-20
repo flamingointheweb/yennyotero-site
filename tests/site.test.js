@@ -89,7 +89,7 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
     : bad('CV broken', 'HTTP ' + cv.status());
 
   // ---- each case study page: images load, no horizontal scroll
-  for (const href of ['work/bachata-connect.html','work/tsb.html','work/oslo-university-hospital.html','work/amplifon.html','work/lego.html','work/orth.html']) {
+  for (const href of ['work/bachata-connect.html','work/tsb.html','work/oslo-university-hospital.html','work/amplifon.html','work/lego.html','work/orth.html','work/serova.html']) {
     const p2 = await ctx.newPage();
     const errs = [];
     p2.on('pageerror', e => errs.push(e.message));
@@ -105,7 +105,7 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
   }
 
   // ---- phone width, homepage + one case study
-  for (const url of ['/', '/work/bachata-connect.html', '/work/lego.html', '/work/orth.html']) {
+  for (const url of ['/', '/work/bachata-connect.html', '/work/lego.html', '/work/orth.html', '/work/serova.html']) {
     const m = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     await m.goto('http://localhost:8099' + url, { waitUntil: 'networkidle' });
     const over = await m.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
@@ -133,7 +133,7 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
   for (const w of [1440, 390]) {
     const ap = await browser.newPage({ viewport: { width: w, height: 900 } });
     const distorted = [];
-    for (const pg of ['/', '/work/bachata-connect.html', '/work/tsb.html', '/work/oslo-university-hospital.html', '/work/amplifon.html', '/work/lego.html', '/work/orth.html']) {
+    for (const pg of ['/', '/work/bachata-connect.html', '/work/tsb.html', '/work/oslo-university-hospital.html', '/work/amplifon.html', '/work/lego.html', '/work/orth.html', '/work/serova.html']) {
       await ap.goto('http://localhost:8099' + pg, { waitUntil: 'networkidle' });
       await ap.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { scrollTo(0, y); await new Promise(r => setTimeout(r, 25)); } });
       const d = await ap.$$eval('img', (is, f) => { const e = new Function('return ' + f)(); return is.filter(i => i.complete && i.naturalWidth && i.offsetWidth && ['fill', ''].includes(getComputedStyle(i).objectFit) && e(i) > 0.01).map(i => i.getAttribute('src')); }, ratioErr.toString());

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Design, frontend and backend, Yenny Otero</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="REPLACE_WITH_UMAMI_ID"></script>
+<script defer src="/a.js"></script>
+<meta name="description" content="One person designing and building a product end to end, for users who are not engineers: the work, run on a product I built and run myself.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap">
+<link rel="stylesheet" href="../site.css">
+<style>.dl{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 0}.dl a{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:4px;font-size:15.5px;font-weight:500;text-decoration:none;min-height:44px}.dl .solid{background:var(--accent);color:#fff}.dl .solid:hover{background:var(--accent-ink)}.dl .line{border:1px solid var(--rule);background:var(--card);color:var(--ink)}.dl .line:hover{border-color:var(--ink)}</style>
+</head>
+<body>
+<div class="bar"><div class="wrap wide">
+  <a class="mark" href="../index.html">Yenny Otero</a>
+  <nav>
+    <a href="../index.html#work">Work</a>
+    <a href="../index.html#code" class="hideSm">Built in code</a>
+    <a href="../index.html#about" class="hideSm">About</a>
+    <a href="../Yenny-Otero-CV-Serova.pdf" class="cta">CV, PDF</a>
+  </nav>
+</div></div>
+<div class="wrap">
+<a class="back" href="../index.html#work">&larr; All work</a>
+<h1>Design, frontend and backend, by one person, for people who are not engineers</h1>
+<p class="stand">I wrote this page for the Founding Design Engineer role at Serova. You asked for someone who can take a loosely defined request from the people who will use it and turn it into software they actually use, without a spec or a PM. That is how I built Bachata Connect, a platform for my own festival, and this page shows what I owned.</p>
+<dl class="meta"><div><dt>For</dt><dd>Founding Design Engineer, Serova</dd></div><div><dt>Based</dt><dd>London, on-site</dd></div><div><dt>Updated</dt><dd>October 2026</dd></div></dl>
+<div class="dl"><a class="solid" href="../Yenny-Otero-CV-Serova.pdf" download>Download my CV, PDF</a><a class="line" href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a></div>
+<div class="stats" style="--n:4"><div class="stat"><b>~1,580 commits</b><span>443 merged PRs and 122 routes in five months, solo</span></div><div class="stat"><b>5 kinds of user</b><span>participants, reviewers, door staff, teachers and admins, in one app</span></div><div class="stat"><b>344 arrivals</b><span>checked in over two afternoons with NFC wristbands</span></div><div class="stat"><b>86 colour pairs</b><span>contrast-tested on every pull request</span></div></div>
+
+<section>
+<div class="head"><span class="lab">The short answer</span></div>
+<h2>A product real people use, which I designed and built alone.</h2>
+<p>Bachata Connect runs the registration, programme, classes and community for Bachata Week C&aacute;diz, the festival I have run every year since 2014. About 1,500 people apply for 300 to 400 places each year, so it has to work for people who are tired, in a hurry and not technical.</p>
+<p>The registration desk used to take about twenty minutes a person, and the week ran on spreadsheets, forms and WhatsApp. Now an NFC wristband tap opens the right screen for whoever taps it, and 344 guests arrived that way. I did not design the screens first. I watched how people actually behaved, then kept what worked and cut what did not.</p>
+<div class="vid" id="bcVid"><button type="button" class="poster" aria-label="Play the two minute walkthrough video"><img src="../img/bc-band-video.webp" alt="A phone showing the Make this band yours screen, from the walkthrough video."><span class="play" aria-hidden="true"><span>&#9654;</span></span></button><span class="bar"><b>The band, the programme, Connect, Learn and Info</b><a href="https://vimeo.com/1227739945" target="_blank" rel="noopener"><em>Open on Vimeo &#8594;</em></a></span></div><script>(function(){var v=document.getElementById("bcVid");if(!v)return;var b=v.querySelector(".poster");b.addEventListener("click",function(){var i=b.querySelector("img"),r=i.getBoundingClientRect(),f=document.createElement("iframe");f.src="https://player.vimeo.com/video/1227739945?autoplay=1&dnt=1&title=0&byline=0&portrait=0";f.title="Bachata Connect walkthrough";f.allow="autoplay; fullscreen; picture-in-picture";f.setAttribute("allowfullscreen","");f.width=Math.round(r.width);f.height=Math.round(r.height);f.style.cssText="border:0;border-radius:4px;display:block;max-width:100%";var w=document.createElement("div");w.className="poster";w.appendChild(f);b.replaceWith(w);if(window.umami)try{umami.track("video-play",{video:"bachata-connect"})}catch(e){}});})();</script>
+<p class="note-sm">The app running, in my own words (two minutes). The <a href="bachata-connect.html">full case study</a> goes deeper.</p>
+</section>
+
+<section>
+<div class="head"><span class="lab">What I owned</span></div>
+<h2>Design, frontend and backend. All of it, one person.</h2>
+<ul class="plain">
+<li><strong>Product and UX.</strong> What to build, what to leave out, and the flows for each kind of user. I started with the problem, not a feature list.</li>
+<li><strong>Frontend.</strong> React, TypeScript and Next.js, with strict types, one component library for three brands, and 86 colour pairs checked for contrast on every pull request.</li>
+<li><strong>Backend and data.</strong> Supabase on Postgres. I also wrote Python scripts that load spreadsheets into the database, clean and merge duplicate records, and keep data in sync with external systems such as ticketing and video.</li>
+<li><strong>Quality and shipping.</strong> A typecheck on every pull request, Playwright tests on the critical journeys, and automatic deploys to Vercel. Nothing ships without my OK.</li>
+<li><strong>AI as my pair.</strong> I build with Claude and AI coding agents inside guardrails I set. The judgement is mine: what to build, how it should feel, how the app is structured, and checking what comes back.</li>
+</ul>
+</section>
+
+<section>
+<div class="head"><span class="lab">From a loose request to software</span></div>
+<h2>I learn the workflow first, then build the tool.</h2>
+<div class="steps">
+<div class="step"><span class="n">01</span><div><h3>One database, different tools for each team</h3><p>Door staff need to find a person in seconds. Reviewers need to read and score. Teachers need to see who is in their class. Admins need everything. Same data, different views, built for each person&rsquo;s job. That is the same shape as internal tools that coordinate operations around one shared database.</p></div></div>
+<div class="step"><span class="n">02</span><div><h3>Read the data myself, and do not trust a number</h3><p>After the event, the feedback dashboard said 45 people had answered the survey. I knew more had. The database returns at most 1,000 rows per request, and with 2,291 answers the dashboard had silently cut off the rest. The real count was 72. Now every admin view pages through every row.</p></div></div>
+<div class="step"><span class="n">03</span><div><h3>Test with people and kill what does not work</h3><p>I wanted an alternative to WhatsApp, so the first version had a noticeboard for shared rooms and lifts. After testing it with people, I removed it. The wristband was meant to be a social habit, but only 38% of holders tapped someone, and taps fell from 139 on day one to 35 on day seven. So I let the band be the moment you arrive and moved finding people again to the directory, where 56 contacts were saved against 2 taps.</p></div></div>
+</div>
+<div class="pair"><figure><img src="../img/bc-noticeboard-v1.webp" alt="The first version of the Connect tab: a noticeboard with posts about shared rooms and taxis."><figcaption>The noticeboard I removed after testing. Names blurred.</figcaption></figure><figure><img src="../img/wristbands.webp" alt="Two Bachata Connect NFC wristbands, one purple co-branded with Pulse and one black."><figcaption>The wristband, which found its real job at the door.</figcaption></figure></div>
+</section>
+
+<section>
+<div class="head"><span class="lab">Care for people who struggle with technology</span></div>
+<h2>I have designed for people who are not at their best with software.</h2>
+<ul class="plain">
+<li><strong>Amplifon, hearing care.</strong> I spent time with hearing aid specialists and their customers, found that the brief was not an app, and redefined it. The result won six international awards.</li>
+<li><strong>Vanquis Bank.</strong> I led inclusive design and accessibility for customers in difficult circumstances, under FCA rules, where tone and clarity matter as much as the interface.</li>
+<li><strong>Accessibility in the build.</strong> Colours are named by their job, an artist can have their own palette but not an unreadable one, and a failing contrast pair blocks the pull request.</li>
+</ul>
+</section>
+
+<section>
+<div class="head"><span class="lab">A system that stays coherent</span></div>
+<h2>Three brands, one component library, in code.</h2>
+<p>Adding a teaching artist is a data change, not a rebuild. At TSB I built the design system and the team around it, and the app went from 1.8 to 4.6 stars with no product managers. Today my system lives in code, with tokens that design and engineering both use. I am not a biologist, but I learn a new domain by sitting with the people who work in it.</p>
+<figure><img src="../img/three-sites.webp" alt="Three artist websites side by side, each in a completely different brand."><figcaption>Three brands, one component library.</figcaption></figure>
+<p class="note-sm">The design system is public: <a href="https://github.com/flamingointheweb/design-system-showcase">github.com/flamingointheweb/design-system-showcase</a>.</p>
+</section>
+
+<section>
+<div class="head"><span class="lab">Why Serova</span></div>
+<h2>A patient-first product where the interface carries real weight.</h2>
+<ul class="plain">
+<li><strong>The problem is real.</strong> Patients and families who have run out of options need to see where their case stands, and clinicians need to trust what they are looking at. I am most motivated when I build for people with a real problem and the work has actual impact.</li>
+<li><strong>I would start by listening.</strong> In the first weeks I would sit with case managers, clinicians and the lab team, map how each of them works today, and ship one small, useful thing early so we learn from real use.</li>
+<li><strong>Founding suits me.</strong> I went from the first designer at TSB to a team of 17, I have founded and run my own products, and I would rather make decisions with the people doing the work than manage a process.</li>
+<li><strong>I am happy to be in the room.</strong> I live in north London and would be glad to be in the office five days a week.</li>
+</ul>
+<p>I would be glad to share my screen and walk you through the code and the product live.</p>
+<div class="dl"><a class="solid" href="../Yenny-Otero-CV-Serova.pdf" download>Download my CV, PDF</a><a class="line" href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a></div>
+</section>
+</div>
+<div class="next"><div class="wrap wide"><a href="bachata-connect.html"><span class="lab">Read next</span><h2>Bachata Connect</h2></a></div></div>
+<footer><div class="wrap wide"><span>Yenny Otero, London</span><span><a href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a></span></div></footer>
+</body>
+</html>
