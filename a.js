@@ -1,5 +1,5 @@
-/* Visitor and click tracking, sent to Vercel Web Analytics (see README-analytics.md).
-   Umami, Plausible and GoatCounter also work if their script tag is loaded instead.
+/* Visitor and click tracking, sent to Umami (see README-analytics.md).
+   Plausible, GoatCounter and Vercel Web Analytics also work if their script tag is loaded instead.
    Nothing is sent from previews or localhost, so test traffic never pollutes the numbers. */
 (function () {
   var LIVE_HOSTS = ['yennyotero.com', 'www.yennyotero.com'];
@@ -8,8 +8,8 @@
   // Send an event to whichever provider is loaded. Silent if none is.
   function track(name, props) {
     try {
-      if (typeof window.va === 'function') { window.va('event', { name: name, data: props || {} }); return; }
       if (window.umami && typeof window.umami.track === 'function') { window.umami.track(name, props || {}); return; }
+      if (typeof window.va === 'function') { window.va('event', { name: name, data: props || {} }); return; }
       if (typeof window.plausible === 'function') { window.plausible(name, { props: props || {} }); return; }
       if (typeof window.goatcounter === 'object' && window.goatcounter.count) {
         window.goatcounter.count({ path: name, title: JSON.stringify(props || {}), event: true }); return;
