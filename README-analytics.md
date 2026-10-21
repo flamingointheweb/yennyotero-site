@@ -1,22 +1,16 @@
 # Measuring visitors and clicks
 
-Two steps, about five minutes. Nothing is recorded until you do step 1.
+Uses **Vercel Web Analytics**: no extra account, no cookies, so no cookie banner.
 
-## 1. Create the account
+## 1. Switch it on
 
-Go to **umami.is**, sign up for the free cloud tier, add a website for `yennyotero.com`.
-It gives you a **Website ID** that looks like `a1b2c3d4-...`.
+In Vercel, open the `yennyotero-site` project → **Analytics** → **Enable**. Every page
+already loads `/_vercel/insights/script.js`, and `a.js` sends its events through `window.va`.
+Nothing is recorded until Analytics is enabled, and nothing is sent from previews or localhost.
 
-Open `index.html`, `work/bachata-connect.html`, `work/tsb.html`,
-`work/oslo-university-hospital.html` and `work/amplifon.html`, and in each one replace:
-
-    data-website-id="REPLACE_WITH_UMAMI_ID"
-
-with your real ID. Then redeploy.
-
-Free tier: 100k events a month and 1 year of history. No cookies, so you do not
-need a cookie banner. Prefer something else? `a.js` also speaks Plausible and
-GoatCounter with no changes, just swap the provider script tag.
+Pageviews, referrers, country, device and browser appear in the Analytics tab. The events
+below appear under **Events**. Prefer Umami, Plausible or GoatCounter? `a.js` speaks those
+too: swap the script tag on each page.
 
 ## 2. Tag the link you put in each application
 
@@ -45,7 +39,7 @@ Keep the plain `yennyotero.com` on your LinkedIn profile and your CV.
 | `scrolled-50` / `scrolled-90` | They read rather than bounced |
 | `stayed-30s` | They were on the page more than a glance |
 
-Pageviews, referrers, country, device and browser come from Umami itself.
+Pageviews, referrers, country, device and browser come from Vercel Web Analytics itself.
 
 ## What to look at
 
@@ -60,7 +54,6 @@ Pageviews, referrers, country, device and browser come from Umami itself.
 
 - Nothing is sent from `localhost` or from preview links, so your own testing
   never pollutes the numbers. Only `yennyotero.com` reports.
-- No cookies and no personal data. Umami stores aggregate counts, not people.
-- Anyone running an ad blocker is invisible to this, and in a technical audience
-  that can be a fifth of visitors. If that matters, Netlify Analytics reads the
-  server logs instead at about $9 a month, though it cannot see clicks.
+- No cookies and no personal data. Vercel Web Analytics stores aggregate counts, not people.
+- Some ad blockers still hide visits, and in a technical audience that can be a
+  sizeable share. Treat the numbers as a floor, not a total.

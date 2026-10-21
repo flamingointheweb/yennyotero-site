@@ -8,6 +8,8 @@ const TYPES = { '.html':'text/html', '.css':'text/css', '.webp':'image/webp', '.
 
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split('?')[0]);
+  // Vercel serves its analytics script on the live site only; stand in with an empty one.
+  if (p.startsWith('/_vercel/')) { res.writeHead(200, { 'content-type': 'text/javascript' }); return res.end(''); }
   if (p.endsWith('/')) p += 'index.html';
   const f = path.join(ROOT, p);
   if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) {
