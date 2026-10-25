@@ -131,3 +131,5 @@ footer a{color:var(--muted)}
 .read-short .full{display:none}
 .full:focus{outline:none}
 @media(max-width:680px){.sum{padding:4px 18px}.sum div{grid-template-columns:1fr}.reads .more{margin-left:18px}}
+.sum dd p{margin:0;max-width:none}
+.sum dd p+p{margin-top:10px}
