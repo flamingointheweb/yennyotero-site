@@ -45,6 +45,6 @@
 </div>
 <div class="next"><div class="wrap wide"><a href="tsb.html"><span class="lab">Next case study</span><h2>TSB Bank</h2></a></div></div>
 <footer><div class="wrap wide"><span>Yenny Otero, London</span><span><a href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a></span></div></footer>
-<script>(function(){var d=document.documentElement,r=document.getElementById("reads"),f=document.getElementById("full");if(!r||!f)return;var bs=r.querySelectorAll("[data-mode]"),still=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;function set(m,user){d.classList.toggle("read-short",m==="short");for(var i=0;i<bs.length;i++){if(bs[i].parentNode.className==="tabs")bs[i].setAttribute("aria-pressed",bs[i].getAttribute("data-mode")===m?"true":"false")}if(!user)return;if(m==="full"){f.setAttribute("tabindex","-1");f.focus({preventScroll:true});f.scrollIntoView({behavior:still?"auto":"smooth",block:"start"})}else{r.scrollIntoView({behavior:still?"auto":"smooth",block:"start"})}if(/(^|\.)yennyotero\.com$/.test(location.hostname)&&window.umami)try{umami.track("read-mode",{mode:m,page:location.pathname})}catch(e){}}for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(e){set(e.currentTarget.getAttribute("data-mode"),true)});set(d.classList.contains("read-short")?"short":"full",false)})();</script>
+<script src="../read.js"></script>
 </body>
 </html>

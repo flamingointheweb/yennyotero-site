@@ -121,39 +121,37 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
     await m.close();
   }
 
-  // ---- Short read / Full read on the Bachata Connect case
-  {
-    const URL = 'http://localhost:8099/work/bachata-connect.html';
+  // ---- Short read / Full read on every case page
+  for (const pg of ['bachata-connect','tsb','oslo-university-hospital','amplifon','lego','orth','serova','wise']) {
+    const URL = 'http://localhost:8099/work/' + pg + '.html';
     const rp = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const rerr = [];
     rp.on('pageerror', e => rerr.push(e.message));
     await rp.goto(URL, { waitUntil: 'networkidle' });
     const shortOnLoad = (await rp.locator('.reads .sum').isVisible()) && !(await rp.locator('#full').isVisible());
-    shortOnLoad ? ok('case opens on the short read') : bad('case does not open on the short read');
-    const hasFour = (await rp.locator('.sum > div').count()) === 4;
-    hasFour ? ok('short read has four lines') : bad('short read line count');
+    const lines = await rp.locator('.sum > div').count();
     const tabH = await rp.$$eval('.reads button', bs => bs.filter(b => b.offsetParent !== null).map(b => Math.round(b.getBoundingClientRect().height)));
-    tabH.length >= 3 && tabH.every(h => h >= 44) ? ok('read buttons are 44px or taller on phone', tabH.join(', ')) : bad('read buttons too small', tabH.join(', '));
     await rp.locator('.reads .tabs [data-mode="full"]').click();
-    await rp.waitForTimeout(400);
+    await rp.waitForTimeout(350);
     const fullShown = await rp.locator('#full').isVisible();
     const pressed = await rp.getAttribute('.reads .tabs [data-mode="full"]', 'aria-pressed');
     const over = await rp.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
-    fullShown && pressed === 'true' && !over ? ok('full read opens, button state follows, no sideways scroll') : bad('full read', [fullShown, pressed, over].join(' '));
     await rp.locator('.reads .tabs [data-mode="short"]').click();
-    await rp.waitForTimeout(400);
-    !(await rp.locator('#full').isVisible()) ? ok('short read hides the full story again') : bad('short read does not hide the story');
+    await rp.waitForTimeout(350);
+    const hidAgain = !(await rp.locator('#full').isVisible());
     await rp.locator('.reads .more').click();
-    await rp.waitForTimeout(400);
-    (await rp.locator('#full').isVisible()) ? ok('"Read the full story" opens the full read') : bad('"Read the full story" does nothing');
+    await rp.waitForTimeout(350);
+    const moreWorks = await rp.locator('#full').isVisible();
     await rp.goto(URL + '#full', { waitUntil: 'networkidle' });
-    (await rp.locator('#full').isVisible()) ? ok('a #full link opens the full read') : bad('#full link stays on the short read');
-    rerr.length === 0 ? ok('no JavaScript errors in the read toggle') : bad('read toggle errors', rerr.join(' | '));
-    await rp.close();
+    const hashFull = await rp.locator('#full').isVisible();
     const np = await (await browser.newContext({ javaScriptEnabled: false })).newPage();
     await np.goto(URL, { waitUntil: 'load' });
-    (await np.locator('#full').isVisible()) && !(await np.locator('.reads .tabs').isVisible()) ? ok('without JavaScript the whole story shows and the toggle is hidden') : bad('no-JavaScript fallback');
+    const noJs = (await np.locator('#full').isVisible()) && !(await np.locator('.reads .tabs').isVisible());
     await np.close();
+    const checks = { shortOnLoad, fourLines: lines === 4, tapTargets44: tabH.length >= 3 && tabH.every(h => h >= 44), fullOpens: fullShown && pressed === 'true', noSidewaysScrollFull: !over, shortHidesAgain: hidAgain, moreButton: moreWorks, hashFull, noJs, noErrors: rerr.length === 0 };
+    const failed = Object.entries(checks).filter(([, v]) => !v).map(([k]) => k);
+    failed.length === 0 ? ok('short and full read work: ' + pg) : bad('short and full read: ' + pg, failed.join(', ') + (rerr.length ? ' | ' + rerr.join(';') : ''));
+    await rp.close();
   }
 
   // ---- tap target sizes on phone
@@ -170,8 +168,8 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
   for (const w of [1440, 390]) {
     const ap = await browser.newPage({ viewport: { width: w, height: 900 } });
     const distorted = [];
-    for (const pg of ['/', '/work/bachata-connect.html', '/work/tsb.html', '/work/oslo-university-hospital.html', '/work/amplifon.html', '/work/lego.html', '/work/orth.html', '/work/serova.html']) {
-      await ap.goto('http://localhost:8099' + pg + (pg.includes('bachata') ? '#full' : ''), { waitUntil: 'networkidle' });
+    for (const pg of ['/', '/work/bachata-connect.html', '/work/tsb.html', '/work/oslo-university-hospital.html', '/work/amplifon.html', '/work/lego.html', '/work/orth.html', '/work/serova.html', '/work/wise.html']) {
+      await ap.goto('http://localhost:8099' + pg + (pg.startsWith('/work/') ? '#full' : ''), { waitUntil: 'networkidle' });
       await ap.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { scrollTo(0, y); await new Promise(r => setTimeout(r, 25)); } });
       const d = await ap.$$eval('img', (is, f) => { const e = new Function('return ' + f)(); return is.filter(i => i.complete && i.naturalWidth && i.offsetWidth && ['fill', ''].includes(getComputedStyle(i).objectFit) && e(i) > 0.01).map(i => i.getAttribute('src')); }, ratioErr.toString());
       d.forEach(s => distorted.push(pg + ' ' + s));

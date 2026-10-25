@@ -5,6 +5,7 @@ My portfolio site. Plain HTML and CSS, no framework and no build step, so it loa
 - `index.html` is the homepage
 - `work/` holds the four case studies
 - `site.css` is shared by the case studies
+- `read.js` runs the Short read / Full read toggle on the case pages
 - `a.js` is a small, cookie-free analytics helper that only runs on the live domain
 - `img/` holds the images, all WebP, with any real people's names and data blurred or replaced by example data
 
