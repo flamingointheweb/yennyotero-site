@@ -121,36 +121,30 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
     await m.close();
   }
 
-  // ---- Short read / Full read on every case page
+  // ---- Short read on top, full story below, no toggle, on every case page
   for (const pg of ['bachata-connect','tsb','oslo-university-hospital','amplifon','lego','orth','serova','wise']) {
     const URL = 'http://localhost:8099/work/' + pg + '.html';
     const rp = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     const rerr = [];
     rp.on('pageerror', e => rerr.push(e.message));
     await rp.goto(URL, { waitUntil: 'networkidle' });
-    const shortOnLoad = (await rp.locator('.reads .sum').isVisible()) && !(await rp.locator('#full').isVisible());
-    const lines = await rp.locator('.sum > div').count();
-    const tabH = await rp.$$eval('.reads button', bs => bs.filter(b => b.offsetParent !== null).map(b => Math.round(b.getBoundingClientRect().height)));
-    await rp.locator('.reads .tabs [data-mode="full"]').click();
-    await rp.waitForTimeout(350);
+    const summaryShown = await rp.locator('.reads .sum').isVisible();
     const fullShown = await rp.locator('#full').isVisible();
-    const pressed = await rp.getAttribute('.reads .tabs [data-mode="full"]', 'aria-pressed');
+    const lines = await rp.locator('.sum > div').count();
+    const noToggle = (await rp.locator('.reads button').count()) === 0 && (await rp.locator('[data-mode]').count()) === 0;
     const over = await rp.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
-    await rp.locator('.reads .tabs [data-mode="short"]').click();
-    await rp.waitForTimeout(350);
-    const hidAgain = !(await rp.locator('#full').isVisible());
-    await rp.locator('.reads .more').click();
-    await rp.waitForTimeout(350);
-    const moreWorks = await rp.locator('#full').isVisible();
-    await rp.goto(URL + '#full', { waitUntil: 'networkidle' });
-    const hashFull = await rp.locator('#full').isVisible();
+    const summaryBeforeFull = await rp.evaluate(() => {
+      const s = document.querySelector('.reads').getBoundingClientRect().top;
+      const f = document.querySelector('#full').getBoundingClientRect().top;
+      return s < f;
+    });
     const np = await (await browser.newContext({ javaScriptEnabled: false })).newPage();
     await np.goto(URL, { waitUntil: 'load' });
-    const noJs = (await np.locator('#full').isVisible()) && !(await np.locator('.reads .tabs').isVisible());
+    const noJs = (await np.locator('#full').isVisible()) && (await np.locator('.reads .sum').isVisible());
     await np.close();
-    const checks = { shortOnLoad, fourLines: lines === 4, tapTargets44: tabH.length >= 3 && tabH.every(h => h >= 44), fullOpens: fullShown && pressed === 'true', noSidewaysScrollFull: !over, shortHidesAgain: hidAgain, moreButton: moreWorks, hashFull, noJs, noErrors: rerr.length === 0 };
+    const checks = { summaryShown, fullShownWithoutClicking: fullShown, fourLines: lines === 4, noToggle, summaryBeforeFull, noSidewaysScroll: !over, noJs, noErrors: rerr.length === 0 };
     const failed = Object.entries(checks).filter(([, v]) => !v).map(([k]) => k);
-    failed.length === 0 ? ok('short and full read work: ' + pg) : bad('short and full read: ' + pg, failed.join(', ') + (rerr.length ? ' | ' + rerr.join(';') : ''));
+    failed.length === 0 ? ok('short read then full story, no clicking: ' + pg) : bad('short read and full story: ' + pg, failed.join(', ') + (rerr.length ? ' | ' + rerr.join(';') : ''));
     await rp.close();
   }
 
