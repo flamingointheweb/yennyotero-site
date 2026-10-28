@@ -44,9 +44,11 @@ h1,h2,h3{color:var(--ink);text-wrap:balance;margin:0}
 
 /* hero */
 .hero .wrap{padding-block:72px 0}
-.hero-role{display:block;margin-top:26px;color:var(--accent)}
+.hero-role{display:block;margin-top:0;color:var(--accent)}
 .status{display:inline-flex;align-items:center;gap:9px;background:var(--accent-soft);color:var(--accent-ink);
   font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:7px 13px;border-radius:999px}
+.avail{margin-top:32px}
+.hero .avail+.acts{margin-top:14px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
 h1{font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.035em;font-weight:600;margin-top:26px;max-width:15ch}
 h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
@@ -193,11 +195,11 @@ footer .wrap{padding-block:26px 44px;font-size:13px;color:var(--muted);display:f
 </div></div>
 
 <div class="hero"><div class="wrap">
-  <span class="status"><span class="dot"></span>Consulting now, available at short notice</span>
   <span class="lab hero-role">Design Engineer · Based in London · Fluent: Español · English · Italiano · Norsk</span>
   <h1>I design products, then I <em>build</em> them.</h1>
   <p class="sub">I started as a developer, led design and customer experience at two banks, and now I design and ship AI products myself in React, TypeScript, Next.js and Supabase.</p>
   <p class="open">Open to permanent, contract and founding roles.</p>
+  <span class="status avail"><span class="dot"></span>Consulting now, available at short notice</span>
   <div class="acts">
     <a class="btn solid" href="/Yenny-Otero-CV.pdf" download>Download CV <span aria-hidden="true">↓ PDF</span></a>
     <a class="btn line" href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a>
