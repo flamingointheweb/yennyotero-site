@@ -177,7 +177,8 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.025em;font-weight:600}
 .contact h2{max-width:18ch}
 .lines{display:flex;flex-wrap:wrap;gap:12px 40px;margin-top:26px}
 .lines a,.lines span{font-family:var(--mono);font-size:15px;color:var(--ink);text-decoration:none}
-.lines a:hover{color:var(--accent)}
+.lines a{text-decoration:underline;text-decoration-color:#b9b9b2;text-underline-offset:5px}
+.lines a:hover{color:var(--accent);text-decoration-color:var(--accent)}
 .lines a.cvlink{font-weight:500;text-decoration:underline;text-underline-offset:4px}
 footer .wrap{padding-block:26px 44px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </style>
@@ -366,7 +367,8 @@ describe.each(palettes)(<span class="s">'palette "%s"'</span>, (name, t) =&gt; {
   <div class="lines">
     <a href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a>
     <span>+44 750 150 3936</span>
-    <a href="https://www.linkedin.com/in/yennyotero/">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/yennyotero/" rel="me">linkedin.com/in/yennyotero</a>
+    <a href="https://github.com/flamingointheweb" rel="me">github.com/flamingointheweb</a>
     <a class="cvlink" href="/Yenny-Otero-CV.pdf" download>Download CV, PDF ↓</a>
   </div>
 </div></div>
