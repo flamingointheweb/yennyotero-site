@@ -37,7 +37,9 @@ h1,h2,h3{color:var(--ink);text-wrap:balance;margin:0}
 .bar nav{display:flex;gap:22px;align-items:center}
 .bar nav a{font-size:14.5px;color:var(--muted);text-decoration:none;padding-block:9px;display:inline-flex;align-items:center}
 .bar nav a:hover{color:var(--ink)}
-.bar nav a.cta{color:var(--accent);font-weight:500}
+.bar nav a.cta{color:#fff;background:var(--accent);font-weight:500;padding:7px 14px;border-radius:4px;text-decoration:none}
+.bar nav a.cta:hover{background:var(--accent-ink)}
+.bar nav a.cta::after{content:" \2193";font-size:.9em}
 @media(max-width:620px){.bar nav a.hideSm{display:none}}
 
 /* hero */
@@ -175,6 +177,7 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.025em;font-weight:600}
 .lines{display:flex;flex-wrap:wrap;gap:12px 40px;margin-top:26px}
 .lines a,.lines span{font-family:var(--mono);font-size:15px;color:var(--ink);text-decoration:none}
 .lines a:hover{color:var(--accent)}
+.lines a.cvlink{font-weight:500;text-decoration:underline;text-underline-offset:4px}
 footer .wrap{padding-block:26px 44px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </style>
 </head>
@@ -192,13 +195,13 @@ footer .wrap{padding-block:26px 44px;font-size:13px;color:var(--muted);display:f
 
 <div class="hero"><div class="wrap">
   <span class="status"><span class="dot"></span>Consulting now, available at short notice</span>
-  <span class="lab hero-role">Design Engineer · London</span>
+  <span class="lab hero-role">Design Engineer</span>
   <span class="lab where">Based in London · Fluent: Español · English · Italiano · Norsk</span>
   <h1>I design products, then I <em>build</em> them.</h1>
   <p class="sub">I started as a developer, led design and customer experience at two banks, and now I design and ship AI products myself in React, TypeScript, Next.js and Supabase.</p>
-  <p class="open">Open to permanent, contract and founding roles. Design engineer, founding designer, product designer. London hybrid or UK remote.</p>
+  <p class="open">Open to permanent, contract and founding roles. Design engineer, founding designer, product designer.</p>
   <div class="acts">
-    <a class="btn solid" href="/Yenny-Otero-CV.pdf">Download CV</a>
+    <a class="btn solid" href="/Yenny-Otero-CV.pdf" download>Download CV <span aria-hidden="true">↓ PDF</span></a>
     <a class="btn line" href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a>
     <span class="tel">+44 750 150 3936</span>
   </div>
@@ -364,7 +367,7 @@ describe.each(palettes)(<span class="s">'palette "%s"'</span>, (name, t) =&gt; {
     <a href="mailto:yenny@neonlighthouse.co.uk">yenny@neonlighthouse.co.uk</a>
     <span>+44 750 150 3936</span>
     <a href="https://www.linkedin.com/in/yennyotero/">LinkedIn</a>
-    <a href="/Yenny-Otero-CV.pdf">CV, PDF</a>
+    <a class="cvlink" href="/Yenny-Otero-CV.pdf" download>Download CV, PDF ↓</a>
   </div>
 </div></div>
 
