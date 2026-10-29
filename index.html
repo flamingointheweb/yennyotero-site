@@ -9,6 +9,7 @@
 <script defer src="https://cloud.umami.is/script.js" data-website-id="1eae9226-3593-46a5-8732-28bc98659456"></script>
 <script defer src="/a.js"></script>
 <meta name="description" content="Yenny Otero, design engineer in London. I design products and then I build them, in React, TypeScript, Next.js and Supabase.">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap">
 <style>
@@ -64,6 +65,37 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
 .meta a{color:var(--muted);text-decoration:underline;text-decoration-color:#b9b9b2;text-underline-offset:4px}
 .meta a:hover{color:var(--accent)}
 .tel{font-family:var(--mono);font-size:14px;color:var(--muted);padding-left:4px}
+
+
+/* hero, centred and alive */
+@font-face{font-family:'InterVar';src:url(fonts/inter-latin-wght.woff2) format('woff2');font-weight:100 900;font-display:swap}
+.hero{position:relative;min-height:min(calc(100svh - 110px),820px);display:flex;align-items:center;overflow-x:clip}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(560px circle at var(--mx,50%) var(--my,38%),color-mix(in srgb,var(--accent) 13%,transparent),transparent 70%)}
+.hero .wrap{position:relative;width:100%;text-align:center;padding-block:56px 44px}
+.hero-role{margin-inline:auto}
+.hero .avail{display:flex;width:fit-content;margin:34px auto 0}
+.hero h1{font-family:'InterVar',var(--sans);font-size:clamp(40px,8.4vw,108px);line-height:1.02;letter-spacing:-.04em;max-width:12.5em;margin:26px auto 0;touch-action:pan-y}
+.hero h1 .w{display:inline-block;white-space:nowrap}
+.hero h1 .l{display:inline-block;text-align:center;font-variation-settings:"wght" var(--w,600);transform:translateY(var(--y,0px))}
+.hero h1 em .l{font-variation-settings:normal}
+.hero h1 .l.scr{font-family:var(--mono);font-style:normal;color:var(--accent);font-weight:500;letter-spacing:0}
+.hint{margin:18px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:opacity .6s}
+.hint .h-touch{display:none}
+@media(hover:none){.hint .h-hover{display:none}.hint .h-touch{display:inline}}
+.hero.touched .hint{opacity:0}
+.hero .sub{margin-inline:auto;margin-top:22px}
+.hero .open{margin-inline:auto}
+.hero .acts{justify-content:center}
+.hero .meta{justify-content:center}
+.hero+.strip{margin-top:0}
+@media(prefers-reduced-motion:reduce){.hint{display:none}.hero::before{display:none}}
+@supports (animation-timeline:view()){
+  @media(prefers-reduced-motion:no-preference){
+    .hero .wrap{animation:heroOut linear both;animation-timeline:view();animation-range:exit 5% exit 70%}
+    @keyframes heroOut{to{opacity:0;transform:translateY(-36px) scale(.985)}}
+  }
+}
 
 /* proof strip */
 .strip{margin-top:60px;border-block:1px solid var(--rule);background:var(--card);overflow-x:auto}
@@ -201,6 +233,7 @@ footer .wrap{padding-block:26px 44px;font-size:13px;color:var(--muted);display:f
 <div class="hero"><div class="wrap">
   <span class="lab hero-role">Design Engineer · Based in London · Fluent: Español · English · Italiano · Norsk</span>
   <h1>I design products, then I <em>build</em> them.</h1>
+  <p class="hint" aria-hidden="true"><span class="h-hover">Move your cursor over the headline</span><span class="h-touch">Drag your finger across the headline</span></p>
   <p class="sub">I started as a developer, led design and customer experience at two banks, and now I design and ship AI products myself in React, TypeScript, Next.js and Supabase.</p>
   <p class="open">Open to permanent, contract and founding roles.</p>
   <span class="status avail"><span class="dot"></span>Consulting now, available at short notice</span>
@@ -467,6 +500,86 @@ describe.each(palettes)(<span class="s">'palette "%s"'</span>, (name, t) =&gt; {
     if (e.key === 'ArrowLeft') show(cur - 1);
     if (e.key === 'ArrowRight') show(cur + 1);
   });
+})();
+</script>
+
+<script>
+/* Cursor-reactive headline. Progressive enhancement: skipped entirely for reduced motion. */
+(function(){
+  var hero=document.querySelector('.hero'), h1=hero&&hero.querySelector('h1');
+  if(!h1||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var label=h1.textContent.replace(/\s+/g,' ').trim();
+  var letters=[];
+  function mk(ch,inEm){var s=document.createElement('span');s.className='l';s.textContent=ch;letters.push({el:s,em:inEm,cx:0,cy:0,final:ch});return s;}
+  function split(str,inEm,into){
+    str.split(/(\s+)/).forEach(function(part){
+      if(!part) return;
+      if(/^\s+$/.test(part)){into.appendChild(document.createTextNode(' '));return;}
+      var w=document.createElement('span');w.className='w';
+      for(var i=0;i<part.length;i++) w.appendChild(mk(part[i],inEm));
+      into.appendChild(w);
+    });
+  }
+  var out=document.createDocumentFragment();
+  Array.prototype.slice.call(h1.childNodes).forEach(function(n){
+    if(n.nodeType===3) split(n.textContent,false,out);
+    else if(n.nodeType===1){var c=n.cloneNode(false);split(n.textContent,true,c);out.appendChild(c);}
+  });
+  h1.textContent='';h1.appendChild(out);h1.setAttribute('aria-label',label);
+  Array.prototype.forEach.call(h1.children,function(c){c.setAttribute('aria-hidden','true');});
+
+  var fs=40, px=null, py=null, lastMove=0, cur=null, raf=0, visible=true, t0=performance.now();
+  function measure(){
+    fs=parseFloat(getComputedStyle(h1).fontSize)||40;
+    letters.forEach(function(l){var r=l.el.getBoundingClientRect();l.cx=r.left+r.width/2+scrollX;l.cy=r.top+r.height/2+scrollY;});
+  }
+  function lock(){
+    letters.forEach(function(l){l.el.style.width='';});
+    fs=parseFloat(getComputedStyle(h1).fontSize)||40;
+    var ws=letters.map(function(l){return l.el.getBoundingClientRect().width/fs;});
+    letters.forEach(function(l,i){l.el.style.width=ws[i].toFixed(4)+'em';});
+    measure();
+  }
+  function frame(now){
+    raf=0; if(!visible) return;
+    var sx=scrollX, sy=scrollY, x, y;
+    if(px===null||now-lastMove>2200){
+      var r=h1.getBoundingClientRect(), k=.5+.5*Math.sin((now-t0)/1500);
+      x=r.left+r.width*(-.05+1.1*k)+sx; y=r.top+r.height*.5+sy;
+    } else {x=px+sx;y=py+sy;}
+    if(!cur) cur={x:x,y:y};
+    cur.x+=(x-cur.x)*.18; cur.y+=(y-cur.y)*.18;
+    var sig=fs*1.15, den=2*sig*sig;
+    for(var i=0;i<letters.length;i++){
+      var l=letters[i], dx=l.cx-cur.x, dy=(l.cy-cur.y)*.7, f=Math.exp(-(dx*dx+dy*dy)/den);
+      if(l.em) l.el.style.setProperty('--y',(-f*fs*.14).toFixed(1)+'px');
+      else l.el.style.setProperty('--w',Math.round(540+330*f));
+    }
+    var hr=hero.getBoundingClientRect();
+    hero.style.setProperty('--mx',(cur.x-sx-hr.left).toFixed(0)+'px');
+    hero.style.setProperty('--my',(cur.y-sy-hr.top).toFixed(0)+'px');
+    raf=requestAnimationFrame(frame);
+  }
+  function start(){if(!raf&&visible) raf=requestAnimationFrame(frame);}
+  hero.addEventListener('pointermove',function(e){px=e.clientX;py=e.clientY;lastMove=performance.now();hero.classList.add('touched');start();},{passive:true});
+  hero.addEventListener('pointerleave',function(){lastMove=0;},{passive:true});
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible)start();}).observe(hero);
+  var rt; addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(measure,120);});
+
+  function intro(){
+    var em=letters.filter(function(l){return l.em;}), G='{}<>/_=;()[]#*+', st=performance.now();
+    em.forEach(function(l){l.el.classList.add('scr');});
+    var iv=setInterval(function(){
+      var n=performance.now()-st, done=true;
+      em.forEach(function(l,i){
+        if(n<600+i*150){l.el.textContent=G.charAt(Math.random()*G.length|0);done=false;}
+        else if(l.el.classList.contains('scr')){l.el.textContent=l.final;l.el.classList.remove('scr');}
+      });
+      if(done) clearInterval(iv);
+    },60);
+  }
+  var ready=(document.fonts&&document.fonts.ready)||Promise.resolve();
+  Promise.race([ready,new Promise(function(r){setTimeout(r,1500);})]).then(function(){lock();intro();start();});
 })();
 </script>
 
