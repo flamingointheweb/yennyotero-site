@@ -177,6 +177,40 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.025em;font-weight:600}
   font-family:var(--mono);font-size:12.5px;line-height:1.62;-webkit-text-size-adjust:100%}
 .snip .c{color:#8f8f84}.snip .k{color:#9fc3cf}.snip .s{color:#d8c08a}
 .cap-sm{font-size:13.5px;color:var(--muted);margin-top:10px;max-width:46ch}
+
+/* door check: live recreation of the two states */
+.door{margin:26px 0 0;display:grid;gap:12px}
+.door-tap{display:flex;align-items:center;gap:10px;color:var(--accent)}
+.tapdot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent);animation:tapping 2.4s ease-out infinite}
+@keyframes tapping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}70%,100%{box-shadow:0 0 0 12px transparent}}
+.dc{position:relative;border-radius:14px;padding:18px 20px 18px 22px;border:1px solid var(--bd);background:var(--bg);color:var(--fg);overflow:hidden}
+.dc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--fg)}
+.dc.ok{--fg:#1d6a43;--bg:#effaf3;--bd:#bfe6cd}
+.dc.no{--fg:#9a3412;--bg:#fff5ea;--bd:#f2cfa6}
+.dc-top{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.dc-top .doors{letter-spacing:.06em;text-transform:none;font-size:12px;color:#6b5f4c}
+.verdict{display:flex;align-items:center;gap:14px;margin-top:12px}
+.verdict svg{flex:none}
+.verdict h4{margin:0;font-size:clamp(24px,3.4vw,30px);line-height:1.1;letter-spacing:-.02em;color:#17150f;font-weight:700}
+.why{margin:4px 0 0;font-size:15px;font-weight:500;color:var(--fg)}
+.when{margin:12px 0 0;font-size:13.5px;color:#5f564a}
+.route{position:relative;margin-top:14px;display:grid;gap:2px;background:#fff;border:1.5px dashed #e3b783;border-radius:10px;padding:12px 46px 12px 16px;color:#17150f}
+.route-l{color:#7a6a52;font-size:10.5px}
+.route strong{font-size:17px;font-weight:700}
+.route-s{font-size:14px;color:#5f564a}
+.route-arrow{position:absolute;right:14px;top:50%;margin-top:-11px;color:var(--fg)}
+@supports (animation-timeline:view()){
+  @media(prefers-reduced-motion:no-preference){
+    .dc{animation:dcIn linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+    @keyframes dcIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+    .dc .draw{stroke-dasharray:1;animation:draw linear both;animation-timeline:view();animation-range:entry 20% entry 70%}
+    @keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+    .route-arrow{animation:nudge 1.8s ease-in-out infinite}
+    @keyframes nudge{50%{transform:translateX(5px)}}
+  }
+}
+@media(prefers-reduced-motion:reduce){.tapdot{animation:none}}
+
 .shotbox{margin-top:26px}
 .shotbox img{width:100%;border:1px solid var(--rule);border-radius:4px}
 .note{margin-top:26px;font-size:14.5px;color:var(--muted);border-left:2px solid var(--rule);padding-left:14px;max-width:48ch}
@@ -326,10 +360,32 @@ describe.each(palettes)(<span class="s">'palette "%s"'</span>, (name, t) =&gt; {
   }
 })</code></pre>
       <p class="cap-sm">The accessibility test that runs on every pull request. If a colour fails, the change cannot ship.</p>
-      <div class="shotbox">
-        <img src="img/det-classaccess.webp" alt="Two states of the class door check: in this class, and not on this list with somewhere else to go.">
-        <p class="cap-sm">Operational logic has two states, and the unhappy one still sends the person somewhere. Example data.</p>
-      </div>
+      <figure class="door" aria-labelledby="door-cap">
+        <div class="door-tap lab"><span class="tapdot" aria-hidden="true"></span>Wristband tapped at the door</div>
+        <div class="dc ok">
+          <div class="dc-top"><span class="room">Sala Atlántico</span><span class="doors">Doors open</span></div>
+          <div class="verdict">
+            <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3.5"/><path class="draw" d="M15 25l7 7 12-14" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg>
+            <div><h4>In this class</h4><p class="why">Bought this add-on.</p></div>
+          </div>
+          <p class="when">16:15 · Musicality Lab · Example teachers</p>
+        </div>
+        <div class="dc no">
+          <div class="dc-top"><span class="room">Sala Atlántico</span><span class="doors">Doors open</span></div>
+          <div class="verdict">
+            <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3.5"/><path class="draw" d="M17 17l14 14M31 17L17 31" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" pathLength="1"/></svg>
+            <div><h4>Not on this list</h4><p class="why">Not booked on this class.</p></div>
+          </div>
+          <p class="when">16:15 · Musicality Lab · Example teachers</p>
+          <div class="route">
+            <span class="route-l lab">Send them to</span>
+            <strong>Sala Caleta · 16:15</strong>
+            <span class="route-s">Body Foundations · Cortadura</span>
+            <svg class="route-arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <figcaption id="door-cap" class="cap-sm">Operational logic has two states, and the unhappy one still sends the person somewhere. Example data.</figcaption>
+      </figure>
     </div>
   </div>
 </div></section>
