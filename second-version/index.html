@@ -104,16 +104,17 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
   }
 }
 
-/* work cases: content arrives on scroll */
-.cases{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
-.case{border-bottom:1px solid var(--rule)}
+/* work: titles stay left, the case on the right changes as you scroll */
+.story{border-top:1px solid var(--ink)}
+.titles{display:none;list-style:none;margin:0;padding:0}
+.panel{border-bottom:1px solid var(--rule)}
 .cs{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;padding:clamp(40px,6vw,84px) 0;text-decoration:none;color:var(--ink)}
-.case:nth-child(even) .shot{order:2}
+.panel:nth-child(even) .shot{order:2}
 .shot{margin:0}
 .stage{display:grid;place-items:center;height:clamp(260px,34vw,440px);padding:clamp(14px,2vw,26px);background:var(--mist);border-radius:6px;overflow:hidden}
 .stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:4px;box-shadow:0 10px 34px -14px rgba(23,46,77,.5);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 .cs:hover .stage img{transform:scale(1.025)}
-.ct{display:grid;gap:0;align-content:center;justify-items:start}
+.ct{display:grid;align-content:center;justify-items:start}
 .ct .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--coral-ink)}
 .ct .role{margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .ct h3{margin-top:10px;font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.6vw,48px);line-height:1.06;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
@@ -123,16 +124,38 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
 .ct .go{margin-top:22px;display:inline-flex;gap:10px;align-items:center;font-weight:500;color:var(--blue);border-bottom:1px solid transparent;padding-bottom:2px}
 .ct .go i{font-style:normal;transition:transform .25s}
 .cs:hover .go{border-bottom-color:var(--blue)}.cs:hover .go i{transform:translateX(5px)}
-@media(max-width:799px){.cs{grid-template-columns:1fr;gap:22px;padding:34px 0}.case:nth-child(even) .shot{order:0}.stage{height:clamp(220px,62vw,340px)}}
+@media(max-width:799px){.cs{grid-template-columns:1fr;gap:22px;padding:34px 0}.panel:nth-child(even) .shot{order:0}.stage{height:clamp(220px,62vw,340px)}}
+/* stacked reveal (phones, or no JS) */
 @supports (animation-timeline:view()){
  @media(prefers-reduced-motion:no-preference){
-  .shot{animation:shotIn linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
-  @keyframes shotIn{from{opacity:0;transform:translateY(60px) scale(.94);clip-path:inset(18% 8% 18% 8% round 8px);filter:blur(8px)}to{clip-path:inset(0 0 0 0 round 8px)}}
-  .ct>*{animation:txtIn linear both;animation-timeline:view();animation-range:entry 12% entry 62%}
-  .ct .role{animation-range:entry 18% entry 68%}.ct h3{animation-range:entry 22% entry 72%}.ct .f{animation-range:entry 28% entry 78%}.ct .d{animation-range:entry 32% entry 82%}.ct .go{animation-range:entry 36% entry 88%}
+  .story:not(.on) .shot{animation:shotIn linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  @keyframes shotIn{from{opacity:0;transform:translateY(60px) scale(.94);filter:blur(8px)}}
+  .story:not(.on) .ct>*{animation:txtIn linear both;animation-timeline:view();animation-range:entry 12% entry 62%}
   @keyframes txtIn{from{opacity:0;filter:blur(12px);transform:translateY(24px)}}
  }
 }
+/* sticky story (desktop) */
+.story.on{height:calc(var(--n) * 64vh + 100vh)}
+.story.on .story-in{position:sticky;top:72px;height:calc(100vh - 72px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(36px,5vw,84px);align-items:center;overflow:hidden}
+.story.on .titles{display:grid;gap:clamp(6px,1.4vh,14px)}
+.titles a{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:baseline;gap:0 6px;padding:8px 0 8px 0;text-decoration:none;color:var(--ink);opacity:.32;transform:translateX(0);transition:opacity .45s,transform .55s cubic-bezier(.2,.8,.2,1)}
+.titles a:hover{opacity:.7}
+.titles .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--coral-ink)}
+.titles .tt{font-family:var(--serif);font-size:clamp(24px,2.7vw,38px);line-height:1.08;letter-spacing:-.02em}
+.titles small{display:block;margin-top:5px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);max-height:0;opacity:0;overflow:hidden;transition:max-height .45s,opacity .45s}
+.titles a.act{opacity:1;transform:translateX(14px)}
+.titles a.act small{max-height:2em;opacity:1}
+.story.on .panels{display:grid;position:relative;min-height:0}
+.story.on .panel{grid-area:1/1;border:0;opacity:0;visibility:hidden;filter:blur(10px);transform:translateY(24px);transition:opacity .5s,filter .5s,transform .6s cubic-bezier(.2,.8,.2,1),visibility 0s .5s;align-self:center}
+.story.on .panel.act{opacity:1;visibility:visible;filter:none;transform:none;transition:opacity .55s .1s,filter .55s .1s,transform .65s .1s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.story.on .cs{grid-template-columns:1fr;gap:clamp(18px,3vh,30px);padding:0}
+.story.on .panel .shot{order:0}
+.story.on .stage{height:clamp(220px,44vh,440px)}
+.story.on .ct{justify-items:start}
+.story.on .ct .n,.story.on .ct h3{display:none}
+.story.on .ct .role{margin-top:0}
+.story.on .ct .f{margin-top:10px}
+@media(prefers-reduced-motion:reduce){.story.on .panel,.story.on .panel.act,.titles a,.titles small{transition:none}}
 
 /* built in code */
 .builds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px}
@@ -269,36 +292,41 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <section id="work"><div class="wrap">
   <div class="head rv"><span class="lab">Selected work</span></div>
-  <ol class="cases" id="index" style="list-style:none">
-    <li class="case"><a class="cs" href="../work/bachata-connect.html">
-      <figure class="shot"><span class="stage"><img src="../img/bc-app-home.webp" alt="The Bachata Connect home screen, with a globe, courses in progress and upcoming events." loading="lazy" decoding="async"></span></figure>
-      <div class="ct"><span class="n">01</span><span class="role">Founder · design and code</span><h3>Bachata Connect</h3><p class="f"><b>344</b> arrivals checked in over two afternoons, each by linking an NFC wristband to the app they were already logged in to</p><p class="d">One app that runs a 350-place training week, from application to the last day: translated teacher feedback, class recommendations, the schedule and staff rotation, and an NFC wristband for check-in.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
-    </a></li>
-    <li class="case"><a class="cs" href="../work/bachata-connect.html">
-      <figure class="shot"><span class="stage"><img src="../img/three-sites.webp" alt="Three artist websites side by side, each in a completely different brand." loading="lazy" decoding="async"></span></figure>
-      <div class="ct"><span class="n">02</span><span class="role">Design system · code</span><h3>Three artists, one codebase</h3><p class="f">One file per artist: colours, fonts, corners, language. A test checks every text colour against its background.</p><p class="d">The marketplace side of Bachata Connect: each teaching artist gets their own site, in their own brand, all running on one codebase. Three brands so far.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
-    </a></li>
-    <li class="case"><a class="cs" href="../work/bachata-connect.html">
-      <figure class="shot"><span class="stage"><img src="../img/bc-player.webp" alt="The course player, showing a lesson with mirror, speed and repeat controls." loading="lazy" decoding="async"></span></figure>
-      <div class="ct"><span class="n">03</span><span class="role">Product design · code</span><h3>The course player</h3><p class="f">Mirror the video, drop to half speed, loop a few seconds, or record yourself next to the lesson.</p><p class="d">Part of the artists’ online courses, so a student can practise a move at their own pace rather than just watch a video.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
-    </a></li>
-    <li class="case"><a class="cs" href="../work/bachata-connect.html">
-      <figure class="shot"><span class="stage"><img src="../img/wristbands.webp" alt="Two NFC wristbands, one purple and one black, printed with Bachata Connect branding and a tap to connect symbol." loading="lazy" decoding="async"></span></figure>
-      <div class="ct"><span class="n">04</span><span class="role">Physical and digital</span><h3>Tap to connect</h3><p class="f">An NFC wristband that opens the right screen in the app: your pass at the door, what you have paid for, another dancer’s profile.</p><p class="d">I first meant the wristband to help dancers meet. It became the way 344 guests checked in, and finding people moved to a directory.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
-    </a></li>
-    <li class="case"><a class="cs" href="../work/tsb.html">
-      <figure class="shot"><span class="stage"><img src="../img/tsb.webp" alt="Four screens from the TSB mobile banking app." loading="lazy" decoding="async"></span></figure>
-      <div class="ct"><span class="n">05</span><span class="role">Head of Design, CX and Innovation</span><h3>TSB Bank</h3><p class="f"><b>1.8 → 4.6</b> App Store rating, after the platform migration locked customers out</p><p class="d">I joined days into the migration that locked customers out. I led the response, built a team of seventeen and led the roadmap while the App Store rating went from 1.8 to 4.6.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
-    </a></li>
-    <li class="case"><a class="cs" href="../work/oslo-university-hospital.html">
-      <figure class="shot"><span class="stage"><img src="../img/oslo.webp" alt="Oslo University Hospital project visual showing a 90 percent reduction in waiting time." loading="lazy" decoding="async"></span></figure>
-      <div class="ct"><span class="n">06</span><span class="role">Lead service designer, Designit</span><h3>Oslo University Hospital</h3><p class="f"><b>12 weeks → 6 days</b> to diagnosis, now the national standard</p><p class="d">A redesign of the breast cancer diagnostic pathway with the clinicians who run it. Time to diagnosis fell from up to twelve weeks to six days, and it became Norway’s national standard.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
-    </a></li>
-    <li class="case"><a class="cs" href="../work/amplifon.html">
-      <figure class="shot"><span class="stage"><img src="../img/amplifon.webp" alt="The Amplifon companion app held in two hands." loading="lazy" decoding="async"></span></figure>
-      <div class="ct"><span class="n">07</span><span class="role">Lead product designer, SapientRazorfish</span><h3>Amplifon companion</h3><p class="f"><b>Six</b> international design awards for a companion to a hearing aid</p><p class="d">Research across Italy showed the hard part was not the device but the first weeks. We designed the adjustment, not a remote control: six international awards and over 6,500 downloads in four months.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
-    </a></li>
-  </ol>
+  <div class="story" id="index" style="--n:7">
+    <div class="story-in">
+      <ol class="titles" aria-label="Selected work"><li><a href="#c1" data-i="0"><span class="n">01</span><span class="tt">Bachata Connect<small>Founder · design and code</small></span></a></li><li><a href="#c2" data-i="1"><span class="n">02</span><span class="tt">Three artists, one codebase<small>Design system · code</small></span></a></li><li><a href="#c3" data-i="2"><span class="n">03</span><span class="tt">The course player<small>Product design · code</small></span></a></li><li><a href="#c4" data-i="3"><span class="n">04</span><span class="tt">Tap to connect<small>Physical and digital</small></span></a></li><li><a href="#c5" data-i="4"><span class="n">05</span><span class="tt">TSB Bank<small>Head of Design, CX and Innovation</small></span></a></li><li><a href="#c6" data-i="5"><span class="n">06</span><span class="tt">Oslo University Hospital<small>Lead service designer, Designit</small></span></a></li><li><a href="#c7" data-i="6"><span class="n">07</span><span class="tt">Amplifon companion<small>Lead product designer, SapientRazorfish</small></span></a></li></ol>
+      <div class="panels">
+      <article class="panel" id="c1"><a class="cs" href="../work/bachata-connect.html">
+        <figure class="shot"><span class="stage"><img src="../img/bc-app-home.webp" alt="The Bachata Connect home screen, with a globe, courses in progress and upcoming events." loading="lazy" decoding="async"></span></figure>
+        <div class="ct"><span class="n">01</span><span class="role">Founder · design and code</span><h3>Bachata Connect</h3><p class="f"><b>344</b> arrivals checked in over two afternoons, each by linking an NFC wristband to the app they were already logged in to</p><p class="d">One app that runs a 350-place training week, from application to the last day: translated teacher feedback, class recommendations, the schedule and staff rotation, and an NFC wristband for check-in.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+      </a></article>
+      <article class="panel" id="c2"><a class="cs" href="../work/bachata-connect.html">
+        <figure class="shot"><span class="stage"><img src="../img/three-sites.webp" alt="Three artist websites side by side, each in a completely different brand." loading="lazy" decoding="async"></span></figure>
+        <div class="ct"><span class="n">02</span><span class="role">Design system · code</span><h3>Three artists, one codebase</h3><p class="f">One file per artist: colours, fonts, corners, language. A test checks every text colour against its background.</p><p class="d">The marketplace side of Bachata Connect: each teaching artist gets their own site, in their own brand, all running on one codebase. Three brands so far.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+      </a></article>
+      <article class="panel" id="c3"><a class="cs" href="../work/bachata-connect.html">
+        <figure class="shot"><span class="stage"><img src="../img/bc-player.webp" alt="The course player, showing a lesson with mirror, speed and repeat controls." loading="lazy" decoding="async"></span></figure>
+        <div class="ct"><span class="n">03</span><span class="role">Product design · code</span><h3>The course player</h3><p class="f">Mirror the video, drop to half speed, loop a few seconds, or record yourself next to the lesson.</p><p class="d">Part of the artists’ online courses, so a student can practise a move at their own pace rather than just watch a video.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+      </a></article>
+      <article class="panel" id="c4"><a class="cs" href="../work/bachata-connect.html">
+        <figure class="shot"><span class="stage"><img src="../img/wristbands.webp" alt="Two NFC wristbands, one purple and one black, printed with Bachata Connect branding and a tap to connect symbol." loading="lazy" decoding="async"></span></figure>
+        <div class="ct"><span class="n">04</span><span class="role">Physical and digital</span><h3>Tap to connect</h3><p class="f">An NFC wristband that opens the right screen in the app: your pass at the door, what you have paid for, another dancer’s profile.</p><p class="d">I first meant the wristband to help dancers meet. It became the way 344 guests checked in, and finding people moved to a directory.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+      </a></article>
+      <article class="panel" id="c5"><a class="cs" href="../work/tsb.html">
+        <figure class="shot"><span class="stage"><img src="../img/tsb.webp" alt="Four screens from the TSB mobile banking app." loading="lazy" decoding="async"></span></figure>
+        <div class="ct"><span class="n">05</span><span class="role">Head of Design, CX and Innovation</span><h3>TSB Bank</h3><p class="f"><b>1.8 → 4.6</b> App Store rating, after the platform migration locked customers out</p><p class="d">I joined days into the migration that locked customers out. I led the response, built a team of seventeen and led the roadmap while the App Store rating went from 1.8 to 4.6.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+      </a></article>
+      <article class="panel" id="c6"><a class="cs" href="../work/oslo-university-hospital.html">
+        <figure class="shot"><span class="stage"><img src="../img/oslo.webp" alt="Oslo University Hospital project visual showing a 90 percent reduction in waiting time." loading="lazy" decoding="async"></span></figure>
+        <div class="ct"><span class="n">06</span><span class="role">Lead service designer, Designit</span><h3>Oslo University Hospital</h3><p class="f"><b>12 weeks → 6 days</b> to diagnosis, now the national standard</p><p class="d">A redesign of the breast cancer diagnostic pathway with the clinicians who run it. Time to diagnosis fell from up to twelve weeks to six days, and it became Norway’s national standard.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+      </a></article>
+      <article class="panel" id="c7"><a class="cs" href="../work/amplifon.html">
+        <figure class="shot"><span class="stage"><img src="../img/amplifon.webp" alt="The Amplifon companion app held in two hands." loading="lazy" decoding="async"></span></figure>
+        <div class="ct"><span class="n">07</span><span class="role">Lead product designer, SapientRazorfish</span><h3>Amplifon companion</h3><p class="f"><b>Six</b> international design awards for a companion to a hearing aid</p><p class="d">Research across Italy showed the hard part was not the device but the first weeks. We designed the adjustment, not a remote control: six international awards and over 6,500 downloads in four months.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+      </a></article>
+      </div>
+    </div>
+  </div>
 </div></section>
 
 <section id="code"><div class="wrap">
@@ -423,6 +451,30 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       b.addEventListener('pointerleave', function(){ b.style.transform = ''; });
     });
   }
+
+  // work story: the right-hand case follows scroll position
+  (function(){
+    var st = document.querySelector('.story'); if(!st) return;
+    var links = st.querySelectorAll('.titles a'), panels = st.querySelectorAll('.panel'), N = panels.length, mq = matchMedia('(min-width:800px)'), cur = -1, tick = 0;
+    function span(){ return Math.max(1, st.offsetHeight - innerHeight + 72); }
+    function set(i){ if(i === cur) return; cur = i; for(var k = 0; k < N; k++){ var on = k === i; links[k].classList.toggle('act', on); panels[k].classList.toggle('act', on); links[k].toggleAttribute('aria-current', on); } }
+    function update(){
+      tick = 0; if(!st.classList.contains('on')) return;
+      var p = Math.min(.999, Math.max(0, -st.getBoundingClientRect().top / span()));
+      set(Math.floor(p * N));
+    }
+    function sync(){ st.classList.toggle('on', mq.matches); cur = -1; if(!mq.matches){ for(var k = 0; k < N; k++){ links[k].classList.remove('act'); panels[k].classList.remove('act'); } } else update(); }
+    addEventListener('scroll', function(){ if(!tick) tick = requestAnimationFrame(update); }, {passive:true});
+    addEventListener('resize', sync); mq.addEventListener && mq.addEventListener('change', sync); sync();
+    Array.prototype.forEach.call(links, function(a, i){
+      a.addEventListener('click', function(e){
+        if(!st.classList.contains('on')) return;
+        e.preventDefault();
+        var y = scrollY + st.getBoundingClientRect().top + (i + .5) / N * span();
+        scrollTo({top: y, behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'});
+      });
+    });
+  })();
 
   // door check demo
   var tap = document.getElementById('tap'), screen = document.getElementById('screen'), label = document.getElementById('tapLabel');
