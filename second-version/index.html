@@ -104,38 +104,35 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
   }
 }
 
-/* work index */
-.index{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
-.row{display:grid;grid-template-columns:64px minmax(0,1.5fr) minmax(0,1fr) 40px;gap:0 24px;align-items:center;padding:26px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink);transition:opacity .3s,padding .35s cubic-bezier(.2,.8,.2,1)}
-.row .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--coral-ink)}
-.row .t{font-family:var(--serif);font-size:clamp(26px,3.2vw,42px);line-height:1.08;letter-spacing:-.02em;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.row .t small{display:block;margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.row .f{font-size:15px;color:var(--muted)}
-.row .f b{font-weight:600;color:var(--ink)}
-.row .go{justify-self:end;color:var(--blue);font-size:22px;transition:transform .3s}
-.row .th{display:none}
-@media(hover:hover) and (min-width:800px){
-  .index:has(.row:hover) .row:not(:hover){opacity:.38}
-  .row:hover .t{transform:translateX(14px)}
-  .row:hover .go{transform:translateX(6px) rotate(-45deg)}
+/* work cases: content arrives on scroll */
+.cases{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.case{border-bottom:1px solid var(--rule)}
+.cs{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;padding:clamp(40px,6vw,84px) 0;text-decoration:none;color:var(--ink)}
+.case:nth-child(even) .shot{order:2}
+.shot{margin:0}
+.stage{display:grid;place-items:center;height:clamp(260px,34vw,440px);padding:clamp(14px,2vw,26px);background:var(--mist);border-radius:6px;overflow:hidden}
+.stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:4px;box-shadow:0 10px 34px -14px rgba(23,46,77,.5);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.cs:hover .stage img{transform:scale(1.025)}
+.ct{display:grid;gap:0;align-content:center;justify-items:start}
+.ct .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--coral-ink)}
+.ct .role{margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ct h3{margin-top:10px;font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.6vw,48px);line-height:1.06;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+.ct .f{margin-top:18px;font-size:17px;color:var(--ink)}
+.ct .f b{font-weight:600}
+.ct .d{margin-top:10px;max-width:46ch;font-size:16px;line-height:1.55;color:var(--muted)}
+.ct .go{margin-top:22px;display:inline-flex;gap:10px;align-items:center;font-weight:500;color:var(--blue);border-bottom:1px solid transparent;padding-bottom:2px}
+.ct .go i{font-style:normal;transition:transform .25s}
+.cs:hover .go{border-bottom-color:var(--blue)}.cs:hover .go i{transform:translateX(5px)}
+@media(max-width:799px){.cs{grid-template-columns:1fr;gap:22px;padding:34px 0}.case:nth-child(even) .shot{order:0}.stage{height:clamp(220px,62vw,340px)}}
+@supports (animation-timeline:view()){
+ @media(prefers-reduced-motion:no-preference){
+  .shot{animation:shotIn linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  @keyframes shotIn{from{opacity:0;transform:translateY(60px) scale(.94);clip-path:inset(18% 8% 18% 8% round 8px);filter:blur(8px)}to{clip-path:inset(0 0 0 0 round 8px)}}
+  .ct>*{animation:txtIn linear both;animation-timeline:view();animation-range:entry 12% entry 62%}
+  .ct .role{animation-range:entry 18% entry 68%}.ct h3{animation-range:entry 22% entry 72%}.ct .f{animation-range:entry 28% entry 78%}.ct .d{animation-range:entry 32% entry 82%}.ct .go{animation-range:entry 36% entry 88%}
+  @keyframes txtIn{from{opacity:0;filter:blur(12px);transform:translateY(24px)}}
+ }
 }
-@media(max-width:799px){
-  .row{grid-template-columns:44px minmax(0,1fr) 84px;gap:0 14px;padding:20px 0}
-  .row .f{grid-column:2;grid-row:2;margin-top:6px;font-size:14px}
-  .row .go{display:none}
-  .row .th{display:block;grid-column:3;grid-row:1 / span 2;width:84px;height:84px;object-fit:cover;object-position:top;border-radius:4px;border:1px solid var(--rule)}
-}
-.peek{position:fixed;left:0;top:0;width:min(400px,32vw);pointer-events:none;z-index:40;opacity:0;transform:translate3d(-999px,-999px,0);will-change:transform,opacity;transition:opacity .25s;background:var(--card);border:1px solid var(--blue);border-radius:10px;box-shadow:10px 10px 0 -1px var(--mist),0 24px 50px -24px rgba(23,46,77,.35);overflow:hidden}
-.peek.on{opacity:1}
-.peek{--sh:clamp(190px,26vh,270px)}
-.peek .stage{height:var(--sh);overflow:hidden;background:var(--mist);display:grid;place-items:center;padding:14px;border-bottom:1px solid var(--rule)}
-.peek .stage img{max-width:100%;max-height:calc(var(--sh) - 28px);width:auto;height:auto;object-fit:contain;border-radius:4px;box-shadow:0 6px 24px -10px rgba(23,46,77,.45)}
-.peek .pt{padding:16px 18px 18px}
-.peek .pk{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-ink)}
-.peek h4{margin-top:6px;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.1;letter-spacing:-.01em;color:var(--ink)}
-.peek p{margin-top:10px;font-size:14.5px;line-height:1.5;color:var(--body)}
-.peek .pgo{margin-top:12px;display:block;font-size:14px;font-weight:500;color:var(--blue)}
-@media(hover:none),(max-width:799px){.peek{display:none}}
 
 /* built in code */
 .builds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px}
@@ -272,17 +269,37 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <section id="work"><div class="wrap">
   <div class="head rv"><span class="lab">Selected work</span></div>
-  <ol class="index" id="index" style="list-style:none">
-    <li><a class="row" data-desc="One app that runs a 350-place training week, from application to the last day: translated teacher feedback, class recommendations, the schedule and staff rotation, and an NFC wristband for check-in." href="../work/bachata-connect.html"><span class="n">01</span><span class="t">Bachata Connect<small>Founder · design and code</small></span><span class="f"><b>344</b> arrivals checked in over two afternoons, each by linking an NFC wristband to the app they were already logged in to</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/bc-app-home.webp" alt="The Bachata Connect home screen, with a globe, courses in progress and upcoming events."></a></li>
-    <li><a class="row" data-desc="The marketplace side. Every teaching artist gets their own site on one codebase, with their own colours, fonts, corners and language. A test checks every text colour against its background." href="../work/bachata-connect.html"><span class="n">02</span><span class="t">Three artists, one codebase<small>Design system · code</small></span><span class="f">One file per artist: colours, fonts, corners, language. A test checks every text colour against its background.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/three-sites.webp" alt="Three artist websites side by side, each in a completely different brand."></a></li>
-    <li><a class="row" data-desc="A lesson player built for learning dance. Mirror the video, drop to half speed, loop a few seconds, or record yourself next to the lesson." href="../work/bachata-connect.html"><span class="n">03</span><span class="t">The course player<small>Product design · code</small></span><span class="f">Mirror the video, drop to half speed, loop a few seconds, or record yourself next to the lesson.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/bc-player.webp" alt="The course player, showing a lesson with mirror, speed and repeat controls."></a></li>
-    <li><a class="row" data-desc="An NFC wristband that opens the right screen in the app: your pass at the door, what you have paid for, another dancer’s profile. It became the way 344 guests checked in." href="../work/bachata-connect.html"><span class="n">04</span><span class="t">Tap to connect<small>Physical and digital</small></span><span class="f">An NFC wristband that opens the right screen in the app: your pass at the door, what you have paid for, another dancer’s profile.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/wristbands.webp" alt="Two NFC wristbands, one purple and one black, printed with Bachata Connect branding and a tap to connect symbol."></a></li>
-    <li><a class="row" data-desc="I joined days into the migration that locked customers out. I led the response, built a team of seventeen and led the roadmap while the App Store rating went from 1.8 to 4.6." href="../work/tsb.html"><span class="n">05</span><span class="t">TSB Bank<small>Head of Design, CX and Innovation</small></span><span class="f"><b>1.8 → 4.6</b> App Store rating, after the platform migration locked customers out</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/tsb.webp" alt="Four screens from the TSB mobile banking app."></a></li>
-    <li><a class="row" data-desc="A redesign of the breast cancer diagnostic pathway with the clinicians who run it. Time to diagnosis fell from up to twelve weeks to six days, and it became Norway’s national standard." href="../work/oslo-university-hospital.html"><span class="n">06</span><span class="t">Oslo University Hospital<small>Lead service designer, Designit</small></span><span class="f"><b>12 weeks → 6 days</b> to diagnosis, now the national standard</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/oslo.webp" alt="Oslo University Hospital project visual showing a 90 percent reduction in waiting time."></a></li>
-    <li><a class="row" data-desc="Research across Italy showed the hard part was not the device but the first weeks. We designed the adjustment, not a remote control: six international awards and over 6,500 downloads in four months." href="../work/amplifon.html"><span class="n">07</span><span class="t">Amplifon companion<small>Lead product designer, SapientRazorfish</small></span><span class="f"><b>Six</b> international design awards for a companion to a hearing aid</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/amplifon.webp" alt="The Amplifon companion app held in two hands."></a></li>
+  <ol class="cases" id="index" style="list-style:none">
+    <li class="case"><a class="cs" href="../work/bachata-connect.html">
+      <figure class="shot"><span class="stage"><img src="../img/bc-app-home.webp" alt="The Bachata Connect home screen, with a globe, courses in progress and upcoming events." loading="lazy" decoding="async"></span></figure>
+      <div class="ct"><span class="n">01</span><span class="role">Founder · design and code</span><h3>Bachata Connect</h3><p class="f"><b>344</b> arrivals checked in over two afternoons, each by linking an NFC wristband to the app they were already logged in to</p><p class="d">One app that runs a 350-place training week, from application to the last day: translated teacher feedback, class recommendations, the schedule and staff rotation, and an NFC wristband for check-in.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+    </a></li>
+    <li class="case"><a class="cs" href="../work/bachata-connect.html">
+      <figure class="shot"><span class="stage"><img src="../img/three-sites.webp" alt="Three artist websites side by side, each in a completely different brand." loading="lazy" decoding="async"></span></figure>
+      <div class="ct"><span class="n">02</span><span class="role">Design system · code</span><h3>Three artists, one codebase</h3><p class="f">One file per artist: colours, fonts, corners, language. A test checks every text colour against its background.</p><p class="d">The marketplace side of Bachata Connect: each teaching artist gets their own site, in their own brand, all running on one codebase. Three brands so far.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+    </a></li>
+    <li class="case"><a class="cs" href="../work/bachata-connect.html">
+      <figure class="shot"><span class="stage"><img src="../img/bc-player.webp" alt="The course player, showing a lesson with mirror, speed and repeat controls." loading="lazy" decoding="async"></span></figure>
+      <div class="ct"><span class="n">03</span><span class="role">Product design · code</span><h3>The course player</h3><p class="f">Mirror the video, drop to half speed, loop a few seconds, or record yourself next to the lesson.</p><p class="d">Part of the artists’ online courses, so a student can practise a move at their own pace rather than just watch a video.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+    </a></li>
+    <li class="case"><a class="cs" href="../work/bachata-connect.html">
+      <figure class="shot"><span class="stage"><img src="../img/wristbands.webp" alt="Two NFC wristbands, one purple and one black, printed with Bachata Connect branding and a tap to connect symbol." loading="lazy" decoding="async"></span></figure>
+      <div class="ct"><span class="n">04</span><span class="role">Physical and digital</span><h3>Tap to connect</h3><p class="f">An NFC wristband that opens the right screen in the app: your pass at the door, what you have paid for, another dancer’s profile.</p><p class="d">I first meant the wristband to help dancers meet. It became the way 344 guests checked in, and finding people moved to a directory.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+    </a></li>
+    <li class="case"><a class="cs" href="../work/tsb.html">
+      <figure class="shot"><span class="stage"><img src="../img/tsb.webp" alt="Four screens from the TSB mobile banking app." loading="lazy" decoding="async"></span></figure>
+      <div class="ct"><span class="n">05</span><span class="role">Head of Design, CX and Innovation</span><h3>TSB Bank</h3><p class="f"><b>1.8 → 4.6</b> App Store rating, after the platform migration locked customers out</p><p class="d">I joined days into the migration that locked customers out. I led the response, built a team of seventeen and led the roadmap while the App Store rating went from 1.8 to 4.6.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+    </a></li>
+    <li class="case"><a class="cs" href="../work/oslo-university-hospital.html">
+      <figure class="shot"><span class="stage"><img src="../img/oslo.webp" alt="Oslo University Hospital project visual showing a 90 percent reduction in waiting time." loading="lazy" decoding="async"></span></figure>
+      <div class="ct"><span class="n">06</span><span class="role">Lead service designer, Designit</span><h3>Oslo University Hospital</h3><p class="f"><b>12 weeks → 6 days</b> to diagnosis, now the national standard</p><p class="d">A redesign of the breast cancer diagnostic pathway with the clinicians who run it. Time to diagnosis fell from up to twelve weeks to six days, and it became Norway’s national standard.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+    </a></li>
+    <li class="case"><a class="cs" href="../work/amplifon.html">
+      <figure class="shot"><span class="stage"><img src="../img/amplifon.webp" alt="The Amplifon companion app held in two hands." loading="lazy" decoding="async"></span></figure>
+      <div class="ct"><span class="n">07</span><span class="role">Lead product designer, SapientRazorfish</span><h3>Amplifon companion</h3><p class="f"><b>Six</b> international design awards for a companion to a hearing aid</p><p class="d">Research across Italy showed the hard part was not the device but the first weeks. We designed the adjustment, not a remote control: six international awards and over 6,500 downloads in four months.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+    </a></li>
   </ol>
 </div></section>
-<div class="peek" id="peek" aria-hidden="true"><div class="stage"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div><div class="pt"><span class="pk"></span><h4></h4><p></p><span class="pgo">Read the case study →</span></div></div>
 
 <section id="code"><div class="wrap">
   <div class="head rv"><span class="lab">Built in code</span></div>
@@ -404,39 +421,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         b.style.transform = 'translate(' + ((e.clientX - r.left - r.width/2) * .18).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height/2) * .28).toFixed(1) + 'px)';
       });
       b.addEventListener('pointerleave', function(){ b.style.transform = ''; });
-    });
-  }
-
-  // work index: image follows the cursor, tilts with speed
-  var peek = document.getElementById('peek');
-  if(fine && !reduce && peek && matchMedia('(min-width:800px)').matches){
-    var pimg = peek.querySelector('img'), pk = peek.querySelector('.pk'), ph = peek.querySelector('h4'), pp = peek.querySelector('p');
-    var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0, on = false;
-    function target(){
-      var w = peek.offsetWidth, h = peek.offsetHeight, gap = 28;
-      var x = tx + gap + w > innerWidth - 16 ? tx - gap - w : tx + gap;
-      var y = Math.max(84, Math.min(innerHeight - h - 16, ty - h / 2));
-      return [x, y];
-    }
-    function loop(){
-      var t = target();
-      cx += (t[0] - cx) * .18; cy += (t[1] - cy) * .18;
-      peek.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
-      raf = (on || Math.abs(t[0] - cx) > .5 || Math.abs(t[1] - cy) > .5) ? requestAnimationFrame(loop) : 0;
-    }
-    Array.prototype.forEach.call(document.querySelectorAll('.row'), function(row){
-      var src = row.querySelector('.th'), t = row.querySelector('.t');
-      row.addEventListener('pointerenter', function(e){
-        pimg.src = src.currentSrc || src.src; pimg.alt = '';
-        pk.textContent = t.querySelector('small').textContent;
-        ph.textContent = t.firstChild.textContent;
-        pp.textContent = row.getAttribute('data-desc') || '';
-        tx = e.clientX; ty = e.clientY;
-        if(!on){ var t0 = target(); cx = t0[0]; cy = t0[1]; }
-        on = true; peek.classList.add('on'); if(!raf) raf = requestAnimationFrame(loop);
-      });
-      row.addEventListener('pointermove', function(e){ tx = e.clientX; ty = e.clientY; });
-      row.addEventListener('pointerleave', function(){ on = false; peek.classList.remove('on'); });
     });
   }
 
