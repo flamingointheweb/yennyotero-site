@@ -125,9 +125,16 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
   .row .go{display:none}
   .row .th{display:block;grid-column:3;grid-row:1 / span 2;width:84px;height:84px;object-fit:cover;object-position:top;border-radius:4px;border:1px solid var(--rule)}
 }
-.peek{position:fixed;left:0;top:0;width:min(340px,30vw);aspect-ratio:4/3;pointer-events:none;z-index:40;opacity:0;transform:translate3d(-999px,-999px,0);will-change:transform,opacity;transition:opacity .25s}
+.peek{position:fixed;left:0;top:0;width:min(400px,32vw);pointer-events:none;z-index:40;opacity:0;transform:translate3d(-999px,-999px,0);will-change:transform,opacity;transition:opacity .25s;background:var(--card);border:1px solid var(--blue);border-radius:10px;box-shadow:10px 10px 0 -1px var(--mist),0 24px 50px -24px rgba(23,46,77,.35);overflow:hidden}
 .peek.on{opacity:1}
-.peek img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:6px;border:1px solid var(--blue);background:var(--card);box-shadow:8px 8px 0 -1px var(--mist)}
+.peek{--sh:clamp(190px,26vh,270px)}
+.peek .stage{height:var(--sh);overflow:hidden;background:var(--mist);display:grid;place-items:center;padding:14px;border-bottom:1px solid var(--rule)}
+.peek .stage img{max-width:100%;max-height:calc(var(--sh) - 28px);width:auto;height:auto;object-fit:contain;border-radius:4px;box-shadow:0 6px 24px -10px rgba(23,46,77,.45)}
+.peek .pt{padding:16px 18px 18px}
+.peek .pk{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-ink)}
+.peek h4{margin-top:6px;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.1;letter-spacing:-.01em;color:var(--ink)}
+.peek p{margin-top:10px;font-size:14.5px;line-height:1.5;color:var(--body)}
+.peek .pgo{margin-top:12px;display:block;font-size:14px;font-weight:500;color:var(--blue)}
 @media(hover:none),(max-width:799px){.peek{display:none}}
 
 /* built in code */
@@ -265,16 +272,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <section id="work"><div class="wrap">
   <div class="head rv"><span class="lab">Selected work</span></div>
   <ol class="index" id="index" style="list-style:none">
-    <li><a class="row" href="../work/bachata-connect.html"><span class="n">01</span><span class="t">Bachata Connect<small>Founder · design and code</small></span><span class="f"><b>344</b> arrivals checked in over two afternoons, each by linking an NFC wristband to the app they were already logged in to</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/bc-app-home.webp" alt="The Bachata Connect home screen, with a globe, courses in progress and upcoming events."></a></li>
-    <li><a class="row" href="../work/bachata-connect.html"><span class="n">02</span><span class="t">Three artists, one codebase<small>Design system · code</small></span><span class="f">One file per artist: colours, fonts, corners, language. A test checks every text colour against its background.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/three-sites.webp" alt="Three artist websites side by side, each in a completely different brand."></a></li>
-    <li><a class="row" href="../work/bachata-connect.html"><span class="n">03</span><span class="t">The course player<small>Product design · code</small></span><span class="f">Mirror the video, drop to half speed, loop a few seconds, or record yourself next to the lesson.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/bc-player.webp" alt="The course player, showing a lesson with mirror, speed and repeat controls."></a></li>
-    <li><a class="row" href="../work/bachata-connect.html"><span class="n">04</span><span class="t">Tap to connect<small>Physical and digital</small></span><span class="f">An NFC wristband that opens the right screen in the app: your pass at the door, what you have paid for, another dancer’s profile.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/wristbands.webp" alt="Two NFC wristbands, one purple and one black, printed with Bachata Connect branding and a tap to connect symbol."></a></li>
-    <li><a class="row" href="../work/tsb.html"><span class="n">05</span><span class="t">TSB Bank<small>Head of Design, CX and Innovation</small></span><span class="f"><b>1.8 → 4.6</b> App Store rating, after the platform migration locked customers out</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/tsb.webp" alt="Four screens from the TSB mobile banking app."></a></li>
-    <li><a class="row" href="../work/oslo-university-hospital.html"><span class="n">06</span><span class="t">Oslo University Hospital<small>Lead service designer, Designit</small></span><span class="f"><b>12 weeks → 6 days</b> to diagnosis, now the national standard</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/oslo.webp" alt="Oslo University Hospital project visual showing a 90 percent reduction in waiting time."></a></li>
-    <li><a class="row" href="../work/amplifon.html"><span class="n">07</span><span class="t">Amplifon companion<small>Lead product designer, SapientRazorfish</small></span><span class="f"><b>Six</b> international design awards for a companion to a hearing aid</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/amplifon.webp" alt="The Amplifon companion app held in two hands."></a></li>
+    <li><a class="row" data-desc="One app that runs a 350-place training week, from application to the last day: translated teacher feedback, class recommendations, the schedule and staff rotation, and an NFC wristband for check-in." href="../work/bachata-connect.html"><span class="n">01</span><span class="t">Bachata Connect<small>Founder · design and code</small></span><span class="f"><b>344</b> arrivals checked in over two afternoons, each by linking an NFC wristband to the app they were already logged in to</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/bc-app-home.webp" alt="The Bachata Connect home screen, with a globe, courses in progress and upcoming events."></a></li>
+    <li><a class="row" data-desc="The marketplace side. Every teaching artist gets their own site on one codebase, with their own colours, fonts, corners and language. A test checks every text colour against its background." href="../work/bachata-connect.html"><span class="n">02</span><span class="t">Three artists, one codebase<small>Design system · code</small></span><span class="f">One file per artist: colours, fonts, corners, language. A test checks every text colour against its background.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/three-sites.webp" alt="Three artist websites side by side, each in a completely different brand."></a></li>
+    <li><a class="row" data-desc="A lesson player built for learning dance. Mirror the video, drop to half speed, loop a few seconds, or record yourself next to the lesson." href="../work/bachata-connect.html"><span class="n">03</span><span class="t">The course player<small>Product design · code</small></span><span class="f">Mirror the video, drop to half speed, loop a few seconds, or record yourself next to the lesson.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/bc-player.webp" alt="The course player, showing a lesson with mirror, speed and repeat controls."></a></li>
+    <li><a class="row" data-desc="An NFC wristband that opens the right screen in the app: your pass at the door, what you have paid for, another dancer’s profile. It became the way 344 guests checked in." href="../work/bachata-connect.html"><span class="n">04</span><span class="t">Tap to connect<small>Physical and digital</small></span><span class="f">An NFC wristband that opens the right screen in the app: your pass at the door, what you have paid for, another dancer’s profile.</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/wristbands.webp" alt="Two NFC wristbands, one purple and one black, printed with Bachata Connect branding and a tap to connect symbol."></a></li>
+    <li><a class="row" data-desc="I joined days into the migration that locked customers out. I led the response, built a team of seventeen and led the roadmap while the App Store rating went from 1.8 to 4.6." href="../work/tsb.html"><span class="n">05</span><span class="t">TSB Bank<small>Head of Design, CX and Innovation</small></span><span class="f"><b>1.8 → 4.6</b> App Store rating, after the platform migration locked customers out</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/tsb.webp" alt="Four screens from the TSB mobile banking app."></a></li>
+    <li><a class="row" data-desc="A redesign of the breast cancer diagnostic pathway with the clinicians who run it. Time to diagnosis fell from up to twelve weeks to six days, and it became Norway’s national standard." href="../work/oslo-university-hospital.html"><span class="n">06</span><span class="t">Oslo University Hospital<small>Lead service designer, Designit</small></span><span class="f"><b>12 weeks → 6 days</b> to diagnosis, now the national standard</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/oslo.webp" alt="Oslo University Hospital project visual showing a 90 percent reduction in waiting time."></a></li>
+    <li><a class="row" data-desc="Research across Italy showed the hard part was not the device but the first weeks. We designed the adjustment, not a remote control: six international awards and over 6,500 downloads in four months." href="../work/amplifon.html"><span class="n">07</span><span class="t">Amplifon companion<small>Lead product designer, SapientRazorfish</small></span><span class="f"><b>Six</b> international design awards for a companion to a hearing aid</span><span class="go" aria-hidden="true">→</span><img class="th" src="../img/amplifon.webp" alt="The Amplifon companion app held in two hands."></a></li>
   </ol>
 </div></section>
-<div class="peek" id="peek" aria-hidden="true"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>
+<div class="peek" id="peek" aria-hidden="true"><div class="stage"><img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div><div class="pt"><span class="pk"></span><h4></h4><p></p><span class="pgo">Read the case study →</span></div></div>
 
 <section id="code"><div class="wrap">
   <div class="head rv"><span class="lab">Built in code</span></div>
@@ -402,19 +409,29 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   // work index: image follows the cursor, tilts with speed
   var peek = document.getElementById('peek');
   if(fine && !reduce && peek && matchMedia('(min-width:800px)').matches){
-    var pimg = peek.querySelector('img'), tx = 0, ty = 0, cx = 0, cy = 0, rot = 0, raf = 0, on = false, lastX = 0;
+    var pimg = peek.querySelector('img'), pk = peek.querySelector('.pk'), ph = peek.querySelector('h4'), pp = peek.querySelector('p');
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0, on = false;
+    function target(){
+      var w = peek.offsetWidth, h = peek.offsetHeight, gap = 28;
+      var x = tx + gap + w > innerWidth - 16 ? tx - gap - w : tx + gap;
+      var y = Math.max(84, Math.min(innerHeight - h - 16, ty - h / 2));
+      return [x, y];
+    }
     function loop(){
-      cx += (tx - cx) * .16; cy += (ty - cy) * .16;
-      var v = Math.max(-8, Math.min(8, (tx - cx) * .12));
-      rot += (v - rot) * .2;
-      peek.style.transform = 'translate3d(' + (cx + 28).toFixed(1) + 'px,' + (cy - 90).toFixed(1) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
-      raf = (on || Math.abs(tx - cx) > .5) ? requestAnimationFrame(loop) : 0;
+      var t = target();
+      cx += (t[0] - cx) * .18; cy += (t[1] - cy) * .18;
+      peek.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
+      raf = (on || Math.abs(t[0] - cx) > .5 || Math.abs(t[1] - cy) > .5) ? requestAnimationFrame(loop) : 0;
     }
     Array.prototype.forEach.call(document.querySelectorAll('.row'), function(row){
-      var src = row.querySelector('.th');
+      var src = row.querySelector('.th'), t = row.querySelector('.t');
       row.addEventListener('pointerenter', function(e){
         pimg.src = src.currentSrc || src.src; pimg.alt = '';
-        if(!on){ cx = tx = e.clientX; cy = ty = e.clientY; }
+        pk.textContent = t.querySelector('small').textContent;
+        ph.textContent = t.firstChild.textContent;
+        pp.textContent = row.getAttribute('data-desc') || '';
+        tx = e.clientX; ty = e.clientY;
+        if(!on){ var t0 = target(); cx = t0[0]; cy = t0[1]; }
         on = true; peek.classList.add('on'); if(!raf) raf = requestAnimationFrame(loop);
       });
       row.addEventListener('pointermove', function(e){ tx = e.clientX; ty = e.clientY; });
