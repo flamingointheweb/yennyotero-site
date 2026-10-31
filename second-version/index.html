@@ -111,8 +111,8 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
 .cs{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;padding:clamp(40px,6vw,84px) 0;text-decoration:none;color:var(--ink)}
 .panel:nth-child(even) .shot{order:2}
 .shot{margin:0}
-.stage{display:grid;place-items:center;height:clamp(260px,34vw,440px);padding:clamp(14px,2vw,26px);background:var(--mist);border-radius:6px;overflow:hidden}
-.stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:4px;box-shadow:0 10px 34px -14px rgba(23,46,77,.5);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.stage{--sh:clamp(260px,34vw,440px);--pd:clamp(14px,2vw,26px);display:grid;place-items:center;height:var(--sh);padding:var(--pd);box-sizing:border-box;background:var(--mist);border-radius:6px;overflow:hidden}
+.stage img{max-width:100%;max-height:calc(var(--sh) - 2 * var(--pd));width:auto;height:auto;object-fit:contain;border-radius:4px;box-shadow:0 10px 34px -14px rgba(23,46,77,.5);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 .cs:hover .stage img{transform:scale(1.025)}
 .ct{display:grid;align-content:center;justify-items:start}
 .ct .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--coral-ink)}
@@ -124,7 +124,7 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
 .ct .go{margin-top:22px;display:inline-flex;gap:10px;align-items:center;font-weight:500;color:var(--blue);border-bottom:1px solid transparent;padding-bottom:2px}
 .ct .go i{font-style:normal;transition:transform .25s}
 .cs:hover .go{border-bottom-color:var(--blue)}.cs:hover .go i{transform:translateX(5px)}
-@media(max-width:799px){.cs{grid-template-columns:1fr;gap:22px;padding:34px 0}.panel:nth-child(even) .shot{order:0}.stage{height:clamp(220px,62vw,340px)}}
+@media(max-width:799px){.cs{grid-template-columns:1fr;gap:22px;padding:34px 0}.panel:nth-child(even) .shot{order:0}.stage{--sh:clamp(220px,62vw,340px)}}
 /* stacked reveal (phones, or no JS) */
 @supports (animation-timeline:view()){
  @media(prefers-reduced-motion:no-preference){
@@ -133,6 +133,40 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
   .story:not(.on) .ct>*{animation:txtIn linear both;animation-timeline:view();animation-range:entry 12% entry 62%}
   @keyframes txtIn{from{opacity:0;filter:blur(12px);transform:translateY(24px)}}
  }
+}
+
+.bridge{margin:-8px 0 30px;max-width:44ch;font-family:var(--serif);font-size:clamp(20px,2.2vw,26px);line-height:1.3;color:var(--ink)}
+.dots{display:none}
+/* phones: picture first, then a swipeable work carousel */
+@media(max-width:899px){
+  .hero{padding-top:clamp(14px,4vw,28px)!important}
+  .hero-grid{gap:20px}
+  .hero-grid>div:first-child{display:flex;flex-direction:column}
+  .arch{order:-1;width:min(100%,300px);aspect-ratio:4/4.1;justify-self:center}
+  .meta{margin-bottom:14px}
+  .acts{order:2;margin-top:22px}
+  .sub{order:3;margin-top:22px;font-size:16px;line-height:1.55}
+}
+@media(max-width:799px){
+  .bridge{margin:-6px 0 22px;font-size:20px}
+  .story{border-top:0}
+  .story .panels{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding:2px 20px 6px;scroll-padding-inline:20px;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+  .story .panels::-webkit-scrollbar{display:none}
+  .story .panel{flex:0 0 84%;scroll-snap-align:start;border:1px solid var(--rule);border-radius:14px;background:var(--card);padding:12px 12px 18px}
+  .story .cs{grid-template-columns:1fr;gap:14px;padding:0}
+  .story .stage{--sh:clamp(180px,52vw,260px);--pd:12px}
+  .story .ct .n{display:none}
+  .story .ct .role{margin-top:0}
+  .story .ct h3{font-size:28px;margin-top:6px}
+  .story .ct .f{font-size:15.5px;margin-top:10px}
+  .story .ct .d{display:none}
+  .story .ct .go{margin-top:14px}
+  .story:not(.on) .shot,.story:not(.on) .ct>*{animation:none}
+  .dots{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+  .dots .cnt{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--muted)}
+  .dots .pips{display:flex;gap:6px}
+  .dots i{width:7px;height:7px;border-radius:50%;background:var(--rule);transition:background .25s,transform .25s}
+  .dots i.act{background:var(--pink-mid);transform:scale(1.25)}
 }
 /* sticky story (desktop) */
 .story.on{height:calc(var(--n) * 64vh + 100vh)}
@@ -150,7 +184,7 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
 .story.on .panel.act{opacity:1;visibility:visible;filter:none;transform:none;transition:opacity .55s .1s,filter .55s .1s,transform .65s .1s cubic-bezier(.2,.8,.2,1),visibility 0s}
 .story.on .cs{grid-template-columns:1fr;gap:clamp(18px,3vh,30px);padding:0}
 .story.on .panel .shot{order:0}
-.story.on .stage{height:clamp(220px,44vh,440px)}
+.story.on .stage{--sh:clamp(220px,44vh,440px)}
 .story.on .ct{justify-items:start}
 .story.on .ct .n,.story.on .ct h3{display:none}
 .story.on .ct .role{margin-top:0}
@@ -292,6 +326,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <section id="work"><div class="wrap">
   <div class="head rv"><span class="lab">Selected work</span></div>
+  <p class="bridge rv">Seven projects, from an event platform I built myself to a hospital pathway that became a national standard.</p>
   <div class="story" id="index" style="--n:7">
     <div class="story-in">
       <ol class="titles" aria-label="Selected work"><li><a href="#c1" data-i="0"><span class="n">01</span><span class="tt">Bachata Connect<small>Founder · design and code</small></span></a></li><li><a href="#c2" data-i="1"><span class="n">02</span><span class="tt">Three artists, one codebase<small>Design system · code</small></span></a></li><li><a href="#c3" data-i="2"><span class="n">03</span><span class="tt">The course player<small>Product design · code</small></span></a></li><li><a href="#c4" data-i="3"><span class="n">04</span><span class="tt">Tap to connect<small>Physical and digital</small></span></a></li><li><a href="#c5" data-i="4"><span class="n">05</span><span class="tt">TSB Bank<small>Head of Design, CX and Innovation</small></span></a></li><li><a href="#c6" data-i="5"><span class="n">06</span><span class="tt">Oslo University Hospital<small>Lead service designer, Designit</small></span></a></li><li><a href="#c7" data-i="6"><span class="n">07</span><span class="tt">Amplifon companion<small>Lead product designer, SapientRazorfish</small></span></a></li></ol>
@@ -325,6 +360,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         <div class="ct"><span class="n">07</span><span class="role">Lead product designer, SapientRazorfish</span><h3>Amplifon companion</h3><p class="f"><b>Six</b> international design awards for a companion to a hearing aid</p><p class="d">Research across Italy showed the hard part was not the device but the first weeks. We designed the adjustment, not a remote control: six international awards and over 6,500 downloads in four months.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
       </a></article>
       </div>
+      <div class="dots" aria-hidden="true"><span class="cnt">1 / 7</span><span class="pips"><i class="act"></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
     </div>
   </div>
 </div></section>
@@ -474,6 +510,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
         scrollTo({top: y, behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'});
       });
     });
+  })();
+
+  // work carousel counter (phones)
+  (function(){
+    var pn = document.querySelector('.story .panels'), dots = document.querySelector('.story .dots'); if(!pn || !dots) return;
+    var pips = dots.querySelectorAll('i'), cnt = dots.querySelector('.cnt'), cur = -1, t = 0;
+    function upd(){ t = 0; var p = pn.querySelector('.panel'); if(!p) return; var w = p.offsetWidth + 12, i = Math.max(0, Math.min(pips.length - 1, Math.round(pn.scrollLeft / w))); if(i === cur) return; cur = i; cnt.textContent = (i + 1) + ' / ' + pips.length; for(var k = 0; k < pips.length; k++) pips[k].classList.toggle('act', k === i); }
+    pn.addEventListener('scroll', function(){ if(!t) t = requestAnimationFrame(upd); }, {passive:true});
   })();
 
   // door check demo
