@@ -362,7 +362,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .cmedia .codewin{width:100%;background:#0f2038}
 @media(max-width:899px){.cpanel{grid-template-columns:1fr;min-height:0}.cmedia{order:-1}.tab{min-width:210px}.duo.c .phone{width:44%}}
 
-.keynote{margin-top:22px;padding-top:18px;border-top:1px solid var(--rule);font-size:15px;color:var(--body)}.keynote a{font-family:var(--mono);font-size:12.5px;color:var(--blue);margin-left:14px;white-space:nowrap;text-underline-offset:4px}.keynote i{font-family:var(--serif);font-size:1.05em}.cpanel .capt a{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#f4a3bb;text-underline-offset:5px}.cpanel .capt a:hover{color:#fff}</style>
+.keynote{margin-top:22px;padding-top:18px;border-top:1px solid var(--rule);font-size:15px;color:var(--body)}.keynote a{font-family:var(--mono);font-size:12.5px;color:var(--blue);margin-left:14px;white-space:nowrap;text-underline-offset:4px}.keynote i{font-family:var(--serif);font-size:1.05em}.cpanel .capt a{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#f4a3bb;text-underline-offset:5px}.cpanel .capt a:hover{color:#fff}.about .txt>p:first-child{font-size:clamp(18px,1.75vw,23px);line-height:1.5}</style>
 <title>Yenny Otero, Design Engineer (second version)</title></head>
 <body>
 <a class="skip" href="#work">Skip to work</a>
@@ -392,7 +392,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 </div></section>
 <section id="work"><div class="wrap">
 <div class="head rv"><span class="lab">Selected work</span></div>
-<p class="bridge rv">Four projects, from an app I built and run myself to a hospital pathway that became a national standard.</p>
+<p class="bridge rv">Four projects, from an app I built and run myself to a hospital diagnostic pathway cut from twelve weeks to six days.</p>
 <div class="story" id="index" style="--n:4">
 <div class="story-in">
 <ol aria-label="Selected work" class="titles"><li><a data-i="0" href="#c1"><span class="n">01</span><span class="tt">Bachata Connect<small>Founder · design and code</small></span></a></li><li><a data-i="1" href="#c5"><span class="n">02</span><span class="tt">TSB Bank<small>Head of Design, CX and Innovation</small></span></a></li><li><a data-i="2" href="#c6"><span class="n">03</span><span class="tt">Oslo University Hospital<small>Lead service designer, Designit</small></span></a></li><li><a data-i="3" href="#c7"><span class="n">04</span><span class="tt">Amplifon companion<small>Lead product designer, SapientRazorfish</small></span></a></li></ol>
@@ -407,7 +407,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 </a></article>
 <article class="panel" id="c6"><a class="cs" href="../work/oslo-university-hospital.html">
 <figure class="shot"><span class="stage"><img alt="Oslo University Hospital project visual showing a 90 percent reduction in waiting time." decoding="async" loading="lazy" src="../img/oslo.webp"/></span></figure>
-<div class="ct"><span class="n">03</span><span class="role">Lead service designer, Designit</span><h3>Oslo University Hospital</h3><p class="f"><b>12 weeks → 6 days</b> to diagnosis, now the national standard</p><p class="d">A redesign of the breast cancer diagnostic pathway with the clinicians who run it. Time to diagnosis fell from up to twelve weeks to six days, and it became Norway’s national standard.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
+<div class="ct"><span class="n">03</span><span class="role">Lead service designer, Designit</span><h3>Oslo University Hospital</h3><p class="f"><b>12 weeks → 6 days</b> to diagnosis</p><p class="d">A redesign of the breast cancer diagnostic pathway with the clinicians who run it. Time to diagnosis fell from up to twelve weeks to six days.</p><span class="go">Read the case study <i aria-hidden="true">→</i></span></div>
 </a></article>
 <article class="panel" id="c7"><a class="cs" href="../work/amplifon.html">
 <figure class="shot"><span class="stage"><img alt="The Amplifon companion app held in two hands." decoding="async" loading="lazy" src="../img/amplifon.webp"/></span></figure>
@@ -442,15 +442,16 @@ describe.each(palettes)(<span class="s">'palette "%s"'</span>, (name, t) =&gt; {
 <div class="about">
 <img alt="Yenny Otero smiling at her desk, with the London skyline through the window behind her." class="rv" height="1250" loading="lazy" sizes="(min-width:761px) 300px, 260px" src="../img/yenny-office-1000.webp" srcset="../img/yenny-office-600.webp 600w, ../img/yenny-office-1000.webp 1000w" width="1000"/>
 <div class="txt rv">
-<p>I am from Colombia, spent sixteen years in Norway and now live in London. My first job was as a developer at Opera Software, where I was employee 69 and worked on browsers for the Nintendo Wii and DS and for Motorola phones.</p>
-<p>On the DSi I was the interaction designer: smooth scrolling, transitions that felt like a game, and pages you could browse with one hand. I have cared about how an interface feels in the hand ever since.</p>
-<p>I moved from code into design, then into customer experience, and spent the last decade in financial services. Most of my work has been with people at difficult moments: borrowers in trouble, patients waiting for a diagnosis, older people adjusting to a hearing aid. That is where behaviour matters more than features.</p>
-<p>I’ve led teams at two banks. I went back to building because AI has made shipping fast, and the hard part now is deciding what’s worth shipping. I have just finished an Executive MBA at Warwick Business School, where my research looked at why people avoid dealing with their money. I speak Spanish, English, Italian and Norwegian.</p>
+<p>Over the last year I have designed, built and run Bachata Connect, a platform used at live festivals. It handles tickets, wristband entry, schedules and teacher profiles, and Claude runs inside it. At Pulse, a three-day festival in London, I took over the app three weeks before it opened. By day two, 115 wristbands were linked, there had been 966 taps, 59 dancers had connected, and all 38 teachers had claimed their profiles. I work in small pull requests with tests and CI, and about 2,100 commits since May are behind it. The design system is public, and I’m happy to walk through the main code live.</p>
+<p>I started as a developer. My first job was at Opera Software, where I was employee 69 and worked on browsers for the Nintendo Wii and DS and for Motorola phones. On the DSi I was the interaction designer. I then moved into design and customer experience, and spent the last decade in financial services, where I led teams and a digital transformation. I chose to go back to building because AI has made shipping fast, and the hard part now is deciding what is worth shipping.</p>
+<p>I care most about products where behaviour matters more than features, such as money, health and community. I have just finished an Executive MBA at Warwick Business School, where my research looked at why people avoid dealing with their money. I speak Spanish, English, Italian and Norwegian.</p>
+<p>I’m looking for a small, ambitious team that wants someone who can design the thing and ship it.</p>
 <ul class="tl">
 <li><span class="y">2023 – now</span><span><b>Neon Lighthouse</b>, co-founder and director. AI product studio.</span></li>
-<li><span class="y">2023 – 2026</span><span><b>Vanquis Bank</b>, Head of Customer Experience. Products serving 1.7M+ customers, team of 15.</span></li>
+<li><span class="y">Founder</span><span><b>Bachata Connect and Bachata Week Cádiz</b>, founder, designer and engineer. Built the platform used at the festivals.</span></li>
+<li><span class="y">2023 – 2026</span><span><b>Vanquis Bank</b>, Head of Customer Experience, then Senior Manager, Customer Experience.</span></li>
 <li><span class="y">2018 – 2023</span><span><b>TSB Bank</b>, Head of Design, Customer Experience and Innovation.</span></li>
-<li><span class="y">2017 – 2018</span><span><b>SapientRazorfish</b>, Lead Product Designer. Amplifon.</span></li>
+<li><span class="y">2017 – 2018</span><span><b>SapientRazorfish</b>, Lead Product Designer. Amplifon companion app: six international design awards and over 6,500 downloads in four months.</span></li>
 <li><span class="y">2013 – 2017</span><span><b>Designit</b>, Oslo. Lead product and service designer, four direct reports.</span></li>
 <li><span class="y">2002 – 2013</span><span><b>Opera Software</b>, Oslo, Tokyo and Beijing. Developer, then interaction and UX designer.</span></li>
 </ul><p class="keynote">Keynote at CX Circle by Contentsquare, <i>About banks and other dinosaurs</i>: <a href="https://contentsquare.wistia.com/medias/4g7v5i6f9u" rel="noopener" target="_blank">watch the talk →</a> <a href="https://go.contentsquare.com/hubfs/UK%20CX%20Circle%20Magazine%20-%202/CX%20Circle%20Magazine%20-%201%20-%20Digital%20-%20EN%20-%20VF%20-%203.4.pdf" rel="noopener" target="_blank">read the article →</a></p>
