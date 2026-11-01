@@ -258,14 +258,15 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
 
 /* talks */
 .talks{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
-.talk{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding:28px 0;border-bottom:1px solid var(--rule)}
+.talk{display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;padding:16px 0;border-bottom:1px solid var(--rule);align-items:start}
 .talk img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px}
-.talk .y{display:block;margin-bottom:8px}
-.talk h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.6vw,32px);line-height:1.12;letter-spacing:-.015em;color:var(--ink)}
-.talk p{margin-top:10px;max-width:64ch;font-size:15.5px;color:var(--muted)}
-.talk .links{display:flex;flex-wrap:wrap;gap:6px 24px;margin-top:14px}
-.talk .links a{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--blue);text-underline-offset:4px;padding-block:6px}
-@media(max-width:700px){.talk{grid-template-columns:1fr;gap:16px}.talk img{max-width:260px}}
+.talk .y{display:block;margin-bottom:4px}
+.talk h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2vw,24px);line-height:1.15;letter-spacing:-.01em;color:var(--ink)}
+.talk p{margin-top:6px;max-width:68ch;font-size:14.5px;color:var(--muted);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.talk:hover p,.talk:focus-within p{-webkit-line-clamp:unset;display:block}
+.talk .links{display:flex;flex-wrap:wrap;gap:0 22px;margin-top:6px}
+.talk .links a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--blue);text-underline-offset:4px;padding-block:6px}
+@media(max-width:700px){.talk{grid-template-columns:84px minmax(0,1fr);gap:14px}.talk p{-webkit-line-clamp:3}}
 
 
 .secno{display:none;font:11px var(--mono);letter-spacing:.1em;color:var(--muted)}
