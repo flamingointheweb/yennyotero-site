@@ -298,6 +298,53 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
  .sub{animation-delay:1.7s}.acts{animation-delay:1.9s}
 }
 
+
+.lede{max-width:52ch;margin:-6px 0 34px;font-family:var(--serif);font-size:clamp(20px,2.2vw,26px);line-height:1.3;color:var(--ink)}
+.phone{position:relative;width:min(100%,250px);aspect-ratio:600/1298;border-radius:36px;padding:9px;background:var(--blue);box-shadow:0 34px 60px -30px rgba(23,46,77,.6),inset 0 0 0 1px rgba(255,255,255,.12)}
+.phone.sq{aspect-ratio:600/1000}
+.phone::before{content:"";position:absolute;left:50%;top:15px;width:62px;height:6px;margin-left:-31px;border-radius:9px;background:rgba(0,0,0,.45);z-index:2}
+.phone img,.phone video{display:block;width:100%;height:100%;object-fit:cover;border-radius:28px;background:#fff}
+.mets{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:center}
+.mlab{flex-basis:100%;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-ink)}
+.met{font-family:var(--mono);font-size:12.5px;line-height:1.35;color:var(--blue);background:color-mix(in srgb,var(--mist) 70%,#fff);border:1px solid color-mix(in srgb,var(--blue) 18%,transparent);padding:7px 11px;border-radius:99px}
+.codewin{background:var(--blue);color:#d9e6f2;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px -34px rgba(23,46,77,.7)}
+.cw-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:rgba(255,255,255,.07);font:12px var(--mono);color:#8fa7c2}
+.cw-bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.22)}.cw-bar span{margin-left:8px}
+.codewin pre{margin:0;padding:18px 20px;overflow-x:auto;font:13px/1.65 var(--mono)}
+.codewin .c{color:#8fa7c2}.codewin .s{color:#f4c4d2}.codewin .k{color:#f4a3bb}
+.capt{margin-top:12px;font-size:13.5px;color:var(--muted);max-width:44ch}
+
+.cstage{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);gap:clamp(30px,6vw,96px);align-items:stretch}
+.stage-col{position:relative}
+.stage-sticky{position:sticky;top:96px;height:calc(100vh - 130px);min-height:520px;display:grid;place-items:center}
+.pane{grid-area:1/1;display:grid;justify-items:center;align-content:center;gap:16px;width:100%;opacity:0;visibility:hidden;filter:blur(10px);transform:translateY(22px) scale(.97);transition:opacity .5s,filter .5s,transform .7s cubic-bezier(.2,.8,.2,1),visibility 0s .5s}
+.pane.act{opacity:1;visibility:visible;filter:none;transform:none;transition:opacity .55s .08s,filter .55s .08s,transform .7s .08s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.pane .phone{width:min(100%,clamp(190px,17vw,250px));width:auto;height:min(calc(100vh - 340px),560px);max-width:100%}
+.pane .phone.sq{height:auto;width:min(100%,260px)}
+.duo{display:flex;gap:18px;justify-content:center;align-items:center}
+.duo .phone{height:min(calc(100vh - 340px),500px);width:auto}
+.pane .capt{text-align:center}
+.pane .codewin{width:100%}
+.steps{display:grid;gap:0}
+.step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:6vh 0;opacity:.28;transition:opacity .5s}
+.step.act{opacity:1}
+.step .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--coral-ink)}
+.step h3{margin-top:10px;font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.2vw,44px);line-height:1.08;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+.step p{margin-top:16px;font-size:16px;line-height:1.6;color:var(--body);max-width:52ch}
+.step .inl{display:none}
+.step .met{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.step.act .met{opacity:1;transform:none}
+.step.act .met:nth-child(2){transition-delay:.1s}.step.act .met:nth-child(3){transition-delay:.18s}.step.act .met:nth-child(4){transition-delay:.26s}.step.act .met:nth-child(5){transition-delay:.34s}
+@media(max-width:899px){
+ .cstage{grid-template-columns:minmax(0,1fr);gap:0}.steps,.step{min-width:0}
+ .stage-col{display:none}
+ .step{min-height:0;opacity:1;padding:34px 0;border-top:1px solid var(--rule)}
+ .step .inl{display:block;margin:18px 0 0;width:min(100%,230px)}
+ .step .inl.codewin{width:100%}
+ .step .inl.phone.sq{width:min(100%,250px)}
+ .step .met{opacity:1;transform:none}
+}
+
 </style>
 <title>Yenny Otero, Design Engineer (second version)</title></head>
 <body>
@@ -371,48 +418,31 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <section id="code"><div class="wrap">
   <div class="head rv"><span class="lab">Built in code</span></div>
-  <div class="builds rv">
-    <div class="build"><span class="n">01</span><p><strong>A design system with accessibility in CI.</strong>Fifteen colour roles, three brands, one component library. Every pull request checks 86 colour pairs: each text colour on each background it sits on, in every palette. There were real failures behind it: our own brand gold reached only 2.6:1 as link text, and one artist’s grey sat between 3.6 and 4.1:1. Both are fixed, and the tests stop them coming back.</p></div>
-    <div class="build"><span class="n">02</span><p><strong>Claude in production.</strong>Expert feedback is written in Spanish, and most of the dancers reading it are not Spanish speakers. Now each one reads their review in their own language, translated on demand, and 325 reviews cost under one euro. Claude also turns class discussions into a digest for each artist.</p></div>
-    <div class="build"><span class="n">03</span><p><strong>A production platform, solo.</strong>Bachata Connect runs on Next.js and Supabase with row level security, in strict TypeScript. Every pull request has to pass a typecheck, and Playwright drives the critical journeys end to end. Python scripts load spreadsheets into Postgres, merge duplicate records and keep ticketing and video in sync.</p></div>
-  </div>
-  <div class="chips rv" aria-label="Stack"><span>TypeScript</span><span>React</span><span>Next.js</span><span>Supabase</span><span>Postgres</span><span>Vercel</span><span>Playwright</span><span>Python</span><span>Claude API</span><span>Figma</span></div>
-  <p class="note rv">The main repository is private while it holds participant data. The design system is public: <a href="https://github.com/flamingointheweb/design-system-showcase">the code</a> and <a href="https://ds.yennyotero.com">a live demo</a>, with the contrast test running in CI. I am happy to walk through the main codebase live.</p>
-
-  <div class="demo rv">
-    <div>
-      <span class="lab">Interactive · example data</span>
-      <h3 style="margin-top:14px">Operational logic has two states, and the unhappy one still sends the person somewhere.</h3>
-      <p>The class door check at Bachata Week. Tap a wristband to see both outcomes.</p>
-      <button class="tap" id="tap" type="button"><span class="tapdot" aria-hidden="true"></span><span id="tapLabel">Tap another wristband</span></button>
-    </div>
-    <div class="screen" id="screen" data-state="ok" role="status" aria-live="polite">
-      <div class="pane ok">
-        <div class="top"><span>Sala Atlántico</span><i>Doors open</i></div>
-        <div class="v"><svg viewBox="0 0 48 48" width="46" height="46" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3.5"/><path class="d" pathLength="1" d="M15 25l7 7 12-14" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><div><h4>In this class</h4><p class="why">Bought this add-on.</p></div></div>
-        <p class="when">16:15 · Musicality Lab · Example teachers</p>
-      </div>
-      <div class="pane no">
-        <div class="top"><span>Sala Atlántico</span><i>Doors open</i></div>
-        <div class="v"><svg viewBox="0 0 48 48" width="46" height="46" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3.5"/><path class="d" pathLength="1" d="M17 17l14 14M31 17L17 31" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg><div><h4>Not on this list</h4><p class="why">Not booked on this class.</p></div></div>
-        <p class="when">16:15 · Musicality Lab · Example teachers</p>
-        <div class="route"><span class="lab">Send them to</span><b>Sala Caleta · 16:15</b><span>Body Foundations · Cortadura</span></div>
-      </div>
-    </div>
-  </div>
-
-  <pre class="code rv" aria-label="Contrast test code"><span class="c">// every text colour, on every ground, in every palette</span>
-<span class="k">describe.each</span>(palettes)('palette "%s"', (name, t) =&gt; {
+  <p class="lede rv">Everything here is live and used by real people. The numbers come from the product&rsquo;s own data.</p>
+  <div class="cstage"><div class="stage-col"><div class="stage-sticky"><div class="pane" data-i="0"><div class="duo"><div class="phone "><img src="../img/bc-pulse-now.webp" alt="The Pulse festival app's Now screen during the opening party: what's happening, what's next and tonight's dress code." loading="lazy" decoding="async"></div><div class="phone vid"><video src="../img/bc-tap-reveal.webm" poster="../img/bc-tap-reveal-poster.webp" width="390" height="844" muted loop playsinline preload="none" aria-label="Two wristbands meet: two profile photos slide together, a gold burst goes off where they touch, and the other dancer's name lands in big type."></video></div></div><p class="capt">Pulse, during the opening party. Right: the moment two wristbands meet, recorded from the app. Built to be the screen people show their friends.</p></div><div class="pane" data-i="1"><div class="phone "><img src="../img/bc-angel-course-page.webp" alt="An artist's course page in their own brand, with a monthly price and a free first lesson." loading="lazy" decoding="async"></div><p class="capt">A course page, in the artist&rsquo;s brand</p></div><div class="pane" data-i="2"><div class="phone sq "><img src="../img/bc-assistant-states.webp" alt="The assistant card answering with its source, saying it doesn't know, and handing a question to the team." loading="lazy" decoding="async"></div><p class="capt">Answered, not sure, handed off. Example replies</p></div><div class="pane" data-i="3"><div class="phone "><img src="../img/bc-pulse-info-safety.webp" alt="The Pulse Info and help page: help right now and reporting first, then the weekend step by step." loading="lazy" decoding="async"></div><p class="capt">Help first, then the weekend</p></div><div class="pane" data-i="4"><div class="codewin "><div class="cw-bar"><i></i><i></i><i></i><span>contrast.test.ts</span></div><pre><code><span class="c">// every text colour, on every ground, in every palette</span>
+describe.each(palettes)(<span class="s">'palette "%s"'</span>, (name, t) =&gt; {
   <span class="k">for</span> (<span class="k">const</span> role <span class="k">of</span> TEXT_ROLES) {
-    <span class="k">it</span>(`${role} reads everywhere (≥ 4.5:1)`, () =&gt; {
+    it(`${role} reads everywhere (&ge; 4.5:1)`, () =&gt; {
       <span class="k">const</span> worst = Math.min(
         ...GROUNDS.map((bg) =&gt; contrastRatio(t[role], t[bg]))
       )
-      <span class="k">expect</span>(worst).toBeGreaterThanOrEqual(4.5)
+      expect(worst).toBeGreaterThanOrEqual(4.5)
     })
   }
-})</pre>
-  <p class="code-cap">The accessibility test that runs on every pull request. If a colour fails, the change cannot ship.</p>
+})</code></pre></div><p class="capt">The accessibility test that runs on every pull request. If a colour fails, the change cannot ship.</p></div></div></div>
+    <div class="steps"><article class="step" data-i="0"><span class="n">01</span><h3>A festival app, live in three weeks.</h3><div class="phone inl"><img src="../img/bc-pulse-now.webp" alt="The Pulse festival app's Now screen during the opening party: what's happening, what's next and tonight's dress code." loading="lazy" decoding="async"></div><p>Pulse is a three-day bachata festival in London. Three weeks before it opened, I took on its app: the wristband is the entry pass, tapping it opens your profile, and tapping someone else&rsquo;s saves them as someone you met. Around it sit the schedule, the teachers, safety information and a ten-second way to tell the organisers how it&rsquo;s going. I merged about 190 small pull requests in the ten days before and during the festival, several of them on opening day.</p><div class="mets"><span class="mlab">By day two</span><span class="met">115 wristbands linked</span><span class="met">966 taps</span><span class="met">59 dancers connected by tapping</span><span class="met">all 38 teachers claimed their profiles</span></div></article><article class="step" data-i="1"><span class="n">02</span><h3>A shop that has taken real money.</h3><div class="phone inl"><img src="../img/bc-angel-course-page.webp" alt="An artist's course page in their own brand, with a monthly price and a free first lesson." loading="lazy" decoding="async"></div><p>Artists sell their own courses on the platform, in their own brand. A free first lesson leads to a monthly subscription through Stripe, and artists are paid out through Stripe Connect. Artists see a buyer&rsquo;s first name and initial, never their email.</p><div class="mets"><span class="mlab">First two weeks</span><span class="met">18 took the free class</span><span class="met">10 started checkout</span><span class="met">5 paid</span><span class="met">sign-ups from 11 countries</span></div></article><article class="step" data-i="2"><span class="n">03</span><h3>Designing what an AI is allowed to say.</h3><div class="phone sq inl"><img src="../img/bc-assistant-states.webp" alt="The assistant card answering with its source, saying it doesn't know, and handing a question to the team." loading="lazy" decoding="async"></div><p>An assistant that answers participants&rsquo; questions about next year&rsquo;s event, but only from facts it is given, with every source checked by the server. Anything it can&rsquo;t verify becomes &ldquo;not sure&rdquo;, and anything sensitive goes to a person. I built a test bench for it: 29 questions, scored for correct, grounded, right hand-off and tone. Every failure in the tests turned into a design fix, taking it from 26 to 29 of 29 correct, at $0.13 a run. It stays switched off for participants until the programme it answers about is complete. Claude also translates expert video feedback from Spanish on demand: 325 reviews for under a euro.</p><div class="mets"><span class="mlab">Test bench</span><span class="met">26 → 29 of 29 correct</span><span class="met">$0.13 a run</span><span class="met">325 reviews translated for under €1</span></div></article><article class="step" data-i="3"><span class="n">04</span><h3>Safety and privacy as product work.</h3><div class="phone inl"><img src="../img/bc-pulse-info-safety.webp" alt="The Pulse Info and help page: help right now and reporting first, then the weekend step by step." loading="lazy" decoding="async"></div><p>At Pulse, help comes first on the Info page: emergency, need help now, witnessing something, report. I first built the report flow with its own separate database, then switched every entry point to the safety team&rsquo;s own form when they asked, within a day. Class posts can be reported by anyone: the post is hidden at once, the organiser&rsquo;s phone gets a push, and they can restore it, remove it or pause the poster. Before the festival I audited my own database permissions, found that profile fields were readable by any signed-in account, and fixed it with column-level grants, checked as a real user, the same day.</p><div class="mets"><span class="met">Reported posts hidden at once</span><span class="met">database permissions audited and fixed the same day</span></div></article><article class="step" data-i="4"><span class="n">05</span><h3>A design system that can&rsquo;t ship unreadable text.</h3><div class="codewin inl"><div class="cw-bar"><i></i><i></i><i></i><span>contrast.test.ts</span></div><pre><code><span class="c">// every text colour, on every ground, in every palette</span>
+describe.each(palettes)(<span class="s">'palette "%s"'</span>, (name, t) =&gt; {
+  <span class="k">for</span> (<span class="k">const</span> role <span class="k">of</span> TEXT_ROLES) {
+    it(`${role} reads everywhere (&ge; 4.5:1)`, () =&gt; {
+      <span class="k">const</span> worst = Math.min(
+        ...GROUNDS.map((bg) =&gt; contrastRatio(t[role], t[bg]))
+      )
+      expect(worst).toBeGreaterThanOrEqual(4.5)
+    })
+  }
+})</code></pre></div><p>Fifteen colour roles, three brands, one component library. Every pull request checks 86 colour pairs, each text colour on each background it sits on. Our own brand gold was 2.6:1 as link text; it&rsquo;s fixed, and the test stops it coming back.</p><div class="mets"><span class="met">15 colour roles</span><span class="met">3 brands</span><span class="met">86 colour pairs checked on every pull request</span></div></article></div></div>
+  <div class="chips rv" aria-label="Stack"><span>TypeScript</span><span>React</span><span>Next.js</span><span>Supabase + RLS</span><span>Stripe Connect</span><span>Web Push</span><span>Claude API</span><span>Playwright</span><span>Vitest</span><span>Python</span><span>Figma</span></div>
+  <p class="note rv">How I work: 2,100 commits since May in small pull requests, CI with typecheck, unit and end-to-end tests, and new features behind flags until they&rsquo;re ready. The main repository is private while it holds participant data. The design system is public: <a href="https://github.com/flamingointheweb/design-system-showcase">the code</a> and <a href="https://ds.yennyotero.com">a live demo</a>. I am happy to walk through the main codebase live.</p>
 </div></section>
 
 <section id="about"><div class="wrap">
@@ -536,5 +566,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   }
 })();
 </script>
-<script>(function(){var i=0;function split(n){Array.prototype.slice.call(n.childNodes).forEach(function(c){if(c.nodeType===3){var f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(function(t){if(!t)return;if(/^\s+$/.test(t)){f.appendChild(document.createTextNode(t));return}var s=document.createElement('span');s.className='w';s.style.setProperty('--i',i++);s.textContent=t;f.appendChild(s)});c.replaceWith(f)}else if(c.nodeType===1)split(c)})}var h=document.querySelector('h1');if(h){h.setAttribute('aria-label','I design products, then I build them.');split(h);h.querySelectorAll('.w').forEach(function(w){w.setAttribute('aria-hidden','true')})}})();</script><script>(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;var w=document.querySelector('h1 em .w');if(!w)return;var word=w.textContent;function run(){var L=word.split(''),sp=[];w.textContent='';L.forEach(function(ch){var e=document.createElement('span');e.textContent=ch;e.style.display='inline-block';w.appendChild(e);sp.push(e)});var ws=sp.map(function(e){return e.getBoundingClientRect().width});sp.forEach(function(e,i){e.style.width=ws[i]+'px';e.style.textAlign='center';e.className='bin';e.textContent=Math.random()<.5?'0':'1'});var t0=performance.now(),iv=setInterval(function(){var t=performance.now()-t0,done=0;sp.forEach(function(e,i){if(e.dataset.d){done++;return}if(t>700+i*180){e.dataset.d=1;e.className='';e.style.width='';e.style.textAlign='';e.textContent=L[i];done++}else{e.textContent=Math.random()<.5?'0':'1'}});if(done===sp.length)clearInterval(iv)},55)}(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(run)})();</script></body>
+<script>(function(){var i=0;function split(n){Array.prototype.slice.call(n.childNodes).forEach(function(c){if(c.nodeType===3){var f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(function(t){if(!t)return;if(/^\s+$/.test(t)){f.appendChild(document.createTextNode(t));return}var s=document.createElement('span');s.className='w';s.style.setProperty('--i',i++);s.textContent=t;f.appendChild(s)});c.replaceWith(f)}else if(c.nodeType===1)split(c)})}var h=document.querySelector('h1');if(h){h.setAttribute('aria-label','I design products, then I build them.');split(h);h.querySelectorAll('.w').forEach(function(w){w.setAttribute('aria-hidden','true')})}})();</script><script>(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;var w=document.querySelector('h1 em .w');if(!w)return;var word=w.textContent;function run(){var L=word.split(''),sp=[];w.textContent='';L.forEach(function(ch){var e=document.createElement('span');e.textContent=ch;e.style.display='inline-block';w.appendChild(e);sp.push(e)});var ws=sp.map(function(e){return e.getBoundingClientRect().width});sp.forEach(function(e,i){e.style.width=ws[i]+'px';e.style.textAlign='center';e.className='bin';e.textContent=Math.random()<.5?'0':'1'});var t0=performance.now(),iv=setInterval(function(){var t=performance.now()-t0,done=0;sp.forEach(function(e,i){if(e.dataset.d){done++;return}if(t>700+i*180){e.dataset.d=1;e.className='';e.style.width='';e.style.textAlign='';e.textContent=L[i];done++}else{e.textContent=Math.random()<.5?'0':'1'}});if(done===sp.length)clearInterval(iv)},55)}(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(run)})();</script><script>(function(){var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;var steps=[].slice.call(document.querySelectorAll('.step')),panes=[].slice.call(document.querySelectorAll('.pane')),vids=document.querySelectorAll('.pane video');
+function set(i){steps.forEach(function(s,k){s.classList.toggle('act',k===i)});panes.forEach(function(p,k){p.classList.toggle('act',k===i)});vids.forEach(function(v){var on=panes[i]&&panes[i].contains(v);if(on&&!RM){var pr=v.play();pr&&pr.catch&&pr.catch(function(){})}else v.pause()})}
+if(!('IntersectionObserver' in window)){set(0);return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)set(+e.target.getAttribute('data-i'))})},{rootMargin:'-42% 0px -42% 0px'});
+steps.forEach(function(s){io.observe(s)});set(0)})();</script>
+</body>
 </html>
