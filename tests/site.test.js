@@ -37,44 +37,51 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
 
   await page.goto('http://localhost:8099/', { waitUntil: 'networkidle' });
 
-  // ---- tiles render
-  const tiles = await page.locator('.tile').count();
-  tiles === 6 ? ok('strip renders 6 tiles') : bad('strip tiles', 'got ' + tiles);
+  // ---- homepage content and structure
+  const h1 = (await page.locator('h1').first().getAttribute('aria-label')) || '';
+  h1 === 'I design products, then I build them.' ? ok('hero headline is exact') : bad('hero headline', h1);
+  const meta = (await page.locator('.meta').first().textContent() || '').replace(/\s+/g, ' ').trim();
+  meta === 'Design Engineer · London · Fluent: ES, EN, IT, NO · Product · AI' ? ok('hero meta line is exact') : bad('hero meta', meta);
+  const btns = (await page.locator('.acts a').allTextContents()).map(x => x.replace(/\s+/g, ' ').trim());
+  btns.length === 2 && /^Explore my work/.test(btns[0]) && /^Get in touch/.test(btns[1]) ? ok('hero buttons are exact') : bad('hero buttons', btns.join(' | '));
+  for (const id of ['top', 'work', 'code', 'about', 'contact']) {
+    (await page.locator('#' + id).count()) === 1 ? ok('section exists: #' + id) : bad('missing section #' + id);
+  }
+  (await page.locator('ol.titles li').count()) === 4 ? ok('work lists 4 cases') : bad('work case count', String(await page.locator('ol.titles li').count()));
+  const body = await page.locator('body').textContent();
+  const banned = ['1.7M', 'team of 15', 'employee 63', 'national standard', '+44 750', 'switched off for participants', 'Talks and archive'].filter(x => body.includes(x));
+  banned.length === 0 ? ok('no retired or unsourced claims on the homepage') : bad('retired claims present', banned.join(', '));
+  body.includes('employee 69') ? ok('Opera employee number is 69') : bad('employee number missing');
 
-  // ---- all strip images actually loaded (not broken)
+  // ---- Built in code tabs: each tab shows exactly its own panel
+  const tabs = await page.locator('[role=tab]').count();
+  tabs === 4 ? ok('code section has 4 tabs') : bad('tab count', String(tabs));
+  let tabsOk = true;
+  for (let k = 1; k <= tabs; k++) {
+    await page.locator('#t' + k).click();
+    const shown = await page.$$eval('[role=tabpanel]', ps => ps.filter(p => !p.hidden).map(p => p.id));
+    if (shown.length !== 1 || shown[0] !== 'p' + k) tabsOk = false;
+  }
+  tabsOk ? ok('each tab shows only its own panel') : bad('tab panels do not match tabs');
+  await page.locator('#t1').focus(); await page.keyboard.press('ArrowRight');
+  (await page.$eval('#t2', e => e.getAttribute('aria-selected'))) === 'true' ? ok('arrow keys move between tabs') : bad('arrow keys do not move tabs');
+  const ds = await page.locator('a[href="https://ds.yennyotero.com"]').count();
+  ds >= 1 ? ok('design system demo link present') : bad('design system link', String(ds));
+
+  // ---- every image loads once scrolled through (lazy images included)
+  await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } scrollTo(0, 0); });
+  await page.waitForTimeout(1200);
   const broken = await page.$$eval('img', is => is.filter(i => i.hasAttribute('src') && (!i.complete || i.naturalWidth === 0)).map(i => i.getAttribute('src')));
   broken.length === 0 ? ok('all homepage images load') : bad('broken images', broken.join(', '));
 
-  // ---- lightbox opens
-  await page.locator('.tile').first().click();
-  await page.waitForTimeout(250);
-  const vis = await page.locator('#lb').isVisible();
-  vis ? ok('lightbox opens on click') : bad('lightbox does not open');
-  const title = (await page.locator('#lbTitle').textContent() || '').trim();
-  title.length > 5 ? ok('lightbox shows a description', '"' + title + '"') : bad('lightbox description empty');
+  // ---- contact: email and copy button
+  (await page.locator('a[href="mailto:yenny@neonlighthouse.co.uk"]').count()) >= 1 ? ok('contact email link present') : bad('contact email missing');
+  (await page.locator('#copyMail').count()) === 1 ? ok('copy email button present') : bad('copy button missing');
 
-  // image inside overlay fits the viewport
-  const box = await page.locator('#lbImg').boundingBox();
-  box && box.height <= 900 ? ok('overlay image fits viewport', Math.round(box.height) + 'px tall') : bad('overlay image too tall', JSON.stringify(box));
-
-  // ---- arrow key navigation
-  await page.keyboard.press('ArrowRight');
-  await page.waitForTimeout(150);
-  const t2 = (await page.locator('#lbTitle').textContent() || '').trim();
-  t2 !== title ? ok('arrow keys move between images') : bad('arrow keys do nothing');
-
-  // ---- escape closes and scroll is restored
-  await page.keyboard.press('Escape');
-  await page.waitForTimeout(200);
-  const closed = !(await page.locator('#lb').isVisible());
-  closed ? ok('escape closes the overlay') : bad('escape does not close');
-  const ov = await page.evaluate(() => document.body.style.overflow);
-  ov === '' ? ok('page scrolling restored after close') : bad('scroll still locked', 'overflow=' + ov);
-
-  // ---- scrolling actually works after closing
-  await page.evaluate(() => window.scrollTo(0, 600));
-  const y = await page.evaluate(() => window.scrollY);
-  y > 300 ? ok('page scrolls after closing overlay', y + 'px') : bad('page will not scroll', 'scrollY=' + y);
+  // ---- work cards link to real case studies
+  for (const href of ['work/bachata-connect.html', 'work/tsb.html', 'work/oslo-university-hospital.html', 'work/amplifon.html']) {
+    (await page.locator('a.cs[href="' + href + '"]').count()) >= 1 ? ok('work card links to ' + href) : bad('work card link missing: ' + href);
+  }
 
   // ---- case study links
   for (const [name, href] of [['Bachata Connect','work/bachata-connect.html'],['TSB','work/tsb.html'],
@@ -112,12 +119,6 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
     await m.goto('http://localhost:8099' + url, { waitUntil: 'networkidle' });
     const over = await m.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
     over ? bad('phone width ' + url, 'page scrolls sideways') : ok('no sideways scroll at 390px: ' + url);
-    if (url === '/') {
-      await m.locator('.tile').first().click();
-      await m.waitForTimeout(250);
-      const v = await m.locator('#lb').isVisible();
-      v ? ok('lightbox works on phone') : bad('lightbox fails on phone');
-    }
     await m.close();
   }
 
@@ -151,7 +152,7 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
   // ---- tap target sizes on phone
   const m2 = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await m2.goto('http://localhost:8099/', { waitUntil: 'networkidle' });
-  const small = await m2.$$eval('a.btn, .bar nav a, .lines a', els =>
+  const small = await m2.$$eval('.acts a, .bar nav a, .lines a', els =>
     els.filter(e => e.offsetParent !== null).map(e => ({ t: (e.textContent||'').trim().slice(0,20), h: Math.round(e.getBoundingClientRect().height) }))
        .filter(x => x.h < 24));
   small.length === 0 ? ok('tap targets are reasonable on phone') : bad('small tap targets', JSON.stringify(small));
@@ -167,17 +168,8 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
       await ap.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { scrollTo(0, y); await new Promise(r => setTimeout(r, 25)); } });
       const d = await ap.$$eval('img', (is, f) => { const e = new Function('return ' + f)(); return is.filter(i => i.complete && i.naturalWidth && i.offsetWidth && ['fill', ''].includes(getComputedStyle(i).objectFit) && e(i) > 0.01).map(i => i.getAttribute('src')); }, ratioErr.toString());
       d.forEach(s => distorted.push(pg + ' ' + s));
-      if (pg === '/') {
-        const n = await ap.locator('.tile').count();
-        for (let k = 0; k < n; k++) {
-          await ap.locator('.tile').nth(k).click(); await ap.waitForTimeout(200);
-          const e = await ap.$eval('#lbImg', (i, f) => new Function('return ' + f)()(i), ratioErr.toString());
-          if (e > 0.01) distorted.push('lightbox ' + (await ap.getAttribute('#lbImg', 'src')));
-          await ap.keyboard.press('Escape');
-        }
-      }
     }
-    distorted.length === 0 ? ok('no image distorted at ' + w + 'px (pages and lightbox)') : bad('distorted images at ' + w + 'px', distorted.join(', '));
+    distorted.length === 0 ? ok('no image distorted at ' + w + 'px') : bad('distorted images at ' + w + 'px', distorted.join(', '));
     await ap.close();
   }
 
