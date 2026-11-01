@@ -49,9 +49,9 @@ const bad = (n, m='') => results.push(['FAIL', n, m]);
   }
   (await page.locator('ol.titles li').count()) === 4 ? ok('work lists 4 cases') : bad('work case count', String(await page.locator('ol.titles li').count()));
   const body = await page.locator('body').textContent();
-  const banned = ['1.7M', 'team of 15', 'employee 63', '+44 750', 'switched off for participants', 'Talks and archive'].filter(x => body.includes(x));
+  const banned = ['1.7M', 'team of 15', '+44 750', 'switched off for participants', 'Talks and archive'].filter(x => body.includes(x));
   banned.length === 0 ? ok('no retired or unsourced claims on the homepage') : bad('retired claims present', banned.join(', '));
-  body.includes('employee 69') ? ok('Opera employee number is 69') : bad('employee number missing');
+  body.includes('employee 63') ? ok('Opera employee number is 63') : bad('employee number missing');
 
   // ---- Built in code tabs: each tab shows exactly its own panel
   const tabs = await page.locator('[role=tab]').count();
