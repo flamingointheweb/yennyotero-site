@@ -177,6 +177,50 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
   .dots i{width:7px;height:7px;border-radius:50%;background:var(--rule);transition:background .25s,transform .25s}
   .dots i.act{background:var(--pink-mid);transform:scale(1.25)}
 }
+
+/* sideways row (desktop): sections sit side by side and normal scroll moves them across */
+.hs-on .hs{height:calc(100vh - 72px + var(--hd,2000px))}
+.hs-on .hs-pin{position:sticky;top:72px;height:calc(100vh - 72px);overflow:hidden}
+.hs-on .hs-track{display:flex;gap:2vw;height:100%;padding-left:4vw;will-change:transform}
+.hs-on .hs-track>section{flex:0 0 86vw;height:calc(100% - 28px);margin:14px 0;padding:0;overflow:hidden;border-radius:22px;background:var(--card);box-shadow:0 0 0 1px var(--rule),0 30px 60px -44px rgba(23,46,77,.4);position:relative}
+.hs-on .hs-track>section>.wrap{max-width:none;height:100%;padding:clamp(22px,2.6vw,40px) clamp(28px,3.6vw,56px);display:flex;flex-direction:column;min-height:0}
+.hs-on .hs-track>.contact{background:var(--blue)}
+.hs-on .hs-track>#about{background:color-mix(in srgb,var(--mist) 42%,var(--card))}
+.hs-on .hs-track>section{margin-top:14px!important}
+.hs-on .head{margin-bottom:14px}
+/* work */
+.hs-on .bridge{margin:0 0 12px;font-size:clamp(18px,1.7vw,24px);max-width:60ch}
+.hs-on .story.on{height:auto;flex:1;min-height:0;border-top:1px solid var(--ink)}
+.hs-on .story.on .story-in{position:static;height:100%}
+.hs-on .story.on .stage{--sh:clamp(200px,38vh,360px)}
+.hs-on .story .ct .d{display:none}
+.hs-on .dots{display:none}
+/* code */
+.hs-on #code .lede{font-size:clamp(16px,1.5vw,20px);margin:-4px 0 12px;max-width:80ch}
+.hs-on #code .ide{flex:1;min-height:0;display:flex;flex-direction:column}
+.hs-on #code .panelwrap{flex:1;min-height:0;overflow:hidden}
+.hs-on #code .cpanel{min-height:0;height:100%;padding:clamp(16px,2vw,28px) clamp(20px,3vw,40px)}
+.hs-on #code .cpanel h3{font-size:clamp(24px,2.4vw,34px)}
+.hs-on #code .cpanel p{font-size:14.5px;line-height:1.5;margin-top:10px}
+.hs-on #code .cpanel .log{margin-top:12px}
+.hs-on #code .tab{padding:10px 16px}
+.hs-on #code .chips,.hs-on #code .note{display:none}
+.hs-on #code .cmedia{max-height:100%;min-height:0}
+.hs-on #code .phone{max-height:100%;width:auto;height:min(100%,50vh)}
+@media(max-height:780px){.hs-on #code .cpanel p+p{display:none}}
+/* about */
+.hs-on #about .about{grid-template-columns:minmax(0,230px) minmax(0,1fr);gap:40px;flex:1;min-height:0;align-items:start}
+.hs-on #about .about img{max-height:46vh;width:auto;max-width:100%}
+.hs-on #about .txt p{font-size:15px;line-height:1.5;margin-bottom:.8em}
+.hs-on #about .txt p:first-child{font-size:clamp(18px,1.7vw,22px);line-height:1.35}
+.hs-on #about .tl{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;column-gap:36px}
+.hs-on #about .tl li{padding:7px 0;font-size:13.5px;grid-template-columns:92px 1fr;gap:10px}
+.hs-on #about .tl li::before{top:14px}
+.hs-on #about .keynote{display:none}
+/* contact */
+.hs-on .contact .wrap{padding-top:clamp(22px,2.6vw,40px)}
+.hs-on .contact h2{font-size:clamp(34px,4.4vw,62px);max-width:22ch}
+.hs-on .contact .postcard{flex:1;min-height:0;height:auto;margin-top:22px;border-radius:14px}
 /* sticky story (desktop) */
 .story.on{height:calc(var(--n) * 50vh + 100vh)}
 .story.on .story-in{position:sticky;top:72px;height:calc(100vh - 72px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(36px,5vw,84px);align-items:center;overflow:hidden}
@@ -403,6 +447,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 </div>
 <div class="arch"><img alt="Blue and pink line drawing of the London skyline across the Thames, with the Shard and St Paul's, and a woman with long wavy hair working at a laptop under a blossom tree in the foreground." decoding="async" fetchpriority="high" height="1200" sizes="100vw" src="img/hero-london-pink-1600.webp?v=4" srcset="img/hero-london-pink-900.webp?v=4 900w, img/hero-london-pink-1600.webp?v=4 1600w" width="1600"/><span aria-hidden="true" class="petal" style="left:30%;animation-delay:0s;animation-duration:11s"></span><span aria-hidden="true" class="petal" style="left:44%;animation-delay:2.6s;animation-duration:12s"></span><span aria-hidden="true" class="petal" style="left:58%;animation-delay:5.1s;animation-duration:10s"></span><span aria-hidden="true" class="petal" style="left:70%;animation-delay:1.4s;animation-duration:13s"></span><span aria-hidden="true" class="petal" style="left:80%;animation-delay:7.2s;animation-duration:11s"></span><span aria-hidden="true" class="petal" style="left:52%;animation-delay:8.6s;animation-duration:12s"></span></div>
 </div></section>
+<div class="hs" id="hs"><div class="hs-pin"><div class="hs-track">
 <section id="work"><div class="wrap">
 <div class="head rv"><span class="lab">Selected work</span></div>
 <p class="bridge rv">Four projects: a dance learning platform I built and run myself, a bank’s app, a hospital pathway that became a national standard, and an award-winning hearing-aid companion.</p>
@@ -476,6 +521,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 </div>
 <figure aria-hidden="true" class="postcard rv"></figure>
 </div></section>
+</div></div></div>
 </main>
 <footer><div class="wrap"><span>Yenny Otero, London</span><span>Designed and built by me</span></div></footer>
 <script>
@@ -519,6 +565,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     function set(i){ if(i === cur) return; cur = i; for(var k = 0; k < N; k++){ var on = k === i; links[k].classList.toggle('act', on); panels[k].classList.toggle('act', on); links[k].toggleAttribute('aria-current', on); } }
     function update(){
       tick = 0; if(!st.classList.contains('on')) return;
+      if(document.documentElement.classList.contains('hs-on')){ if(cur < 0) set(0); return; }
       var p = Math.min(.999, Math.max(0, -st.getBoundingClientRect().top / span()));
       set(Math.floor(p * N));
     }
@@ -529,6 +576,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       a.addEventListener('click', function(e){
         if(!st.classList.contains('on')) return;
         e.preventDefault();
+        if(document.documentElement.classList.contains('hs-on')){ set(i); return; }
         var y = scrollY + st.getBoundingClientRect().top + (i + .5) / N * span();
         scrollTo({top: y, behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'});
       });
@@ -576,11 +624,52 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     var nl = document.querySelectorAll('nav a[data-s]');
     if(nl.length && IO){
       var ids = ['work','code','about'];
-      var sio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ for(var k=0;k<nl.length;k++){ nl[k].classList.toggle('on', nl[k].getAttribute('data-s')===e.target.id); } } }); }, {rootMargin:'-45% 0px -50% 0px'});
+      var sio = new IntersectionObserver(function(es){ if(document.documentElement.classList.contains('hs-on')) return; es.forEach(function(e){ if(e.isIntersecting){ for(var k=0;k<nl.length;k++){ nl[k].classList.toggle('on', nl[k].getAttribute('data-s')===e.target.id); } } }); }, {rootMargin:'-45% 0px -50% 0px'});
       ids.forEach(function(id){ var el = document.getElementById(id); if(el) sio.observe(el); });
       var top = document.getElementById('top');
       if(top) new IntersectionObserver(function(es){ if(es[0].isIntersecting){ for(var k=0;k<nl.length;k++) nl[k].classList.remove('on'); } }, {rootMargin:'-45% 0px -50% 0px'}).observe(top);
     }
+  })();
+
+
+  // sideways row: on wide screens the four sections sit side by side and normal scroll moves them across
+  (function(){
+    var hs = document.getElementById('hs'); if(!hs) return;
+    var pin = hs.querySelector('.hs-pin'), track = hs.querySelector('.hs-track'), panels = Array.prototype.slice.call(track.children);
+    var root = document.documentElement, on = false, dist = 1, pad = 0, tick = 0, ids = panels.map(function(x){ return x.id; });
+    var nl = document.querySelectorAll('nav a[data-s]');
+    function want(){ return innerWidth >= 1100 && innerHeight >= 640 && !matchMedia('(prefers-reduced-motion:reduce)').matches && !!(window.CSS && CSS.supports('position','sticky')); }
+    function measure(){
+      track.style.transform = '';
+      pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+      dist = Math.max(1, panels[panels.length - 1].offsetLeft - pad);
+      hs.style.setProperty('--hd', dist + 'px');
+    }
+    function top0(){ return scrollY + hs.getBoundingClientRect().top - 72; }
+    function update(){
+      tick = 0; if(!on) return;
+      var p = Math.min(dist, Math.max(0, -(hs.getBoundingClientRect().top - 72)));
+      track.style.transform = 'translate3d(' + (-p).toFixed(1) + 'px,0,0)';
+      var cur = 0; for(var i = 0; i < panels.length; i++){ if(panels[i].offsetLeft - pad <= p + 80) cur = i; }
+      var past = hs.getBoundingClientRect().top - 72 > 0;
+      for(var k = 0; k < nl.length; k++){ var id = nl[k].getAttribute('data-s'); nl[k].classList.toggle('on', !past && id === ids[cur]); }
+    }
+    function sync(){
+      var w = want(); if(w !== on){ on = w; root.classList.toggle('hs-on', on); if(!on) track.style.transform = ''; dispatchEvent(new Event('resize')); }
+      if(on){ measure(); update(); }
+    }
+    addEventListener('scroll', function(){ if(on && !tick) tick = requestAnimationFrame(update); }, {passive:true});
+    addEventListener('resize', sync);
+    addEventListener('load', sync);
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href^="#"]'); if(!a || !on) return;
+      var id = a.getAttribute('href').slice(1), i = ids.indexOf(id); if(i < 0) return;
+      e.preventDefault();
+      scrollTo({top: top0() + panels[i].offsetLeft - pad, behavior:'smooth'});
+      history.replaceState(null, '', '#' + id);
+    });
+    sync();
+    if(on && location.hash){ var j = ids.indexOf(location.hash.slice(1)); if(j > -1) scrollTo({top: top0() + panels[j].offsetLeft - pad}); }
   })();
 
   // door check demo
