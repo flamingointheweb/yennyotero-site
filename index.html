@@ -361,7 +361,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .cmedia .codewin{width:100%;background:#0f2038}
 @media(max-width:899px){.cpanel{grid-template-columns:1fr;min-height:0}.cmedia{order:-1}.tab{min-width:210px}.duo.c .phone{width:44%}}
 
-.keynote{margin-top:22px;padding-top:18px;border-top:1px solid var(--rule);font-size:15px;color:var(--body)}.keynote a{font-family:var(--mono);font-size:12.5px;color:var(--blue);margin-left:14px;white-space:nowrap;text-underline-offset:4px}.keynote i{font-family:var(--serif);font-size:1.05em}.cpanel .capt a{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#f4a3bb;text-underline-offset:5px}.cpanel .capt a:hover{color:#fff}.about .txt>p:first-child{font-size:clamp(18px,1.75vw,23px);line-height:1.5}.cmedia .wide{width:100%}.cmedia .wide img{width:100%;height:auto;border-radius:10px;box-shadow:0 20px 50px -30px rgba(0,0,0,.6)}.duo.c.c3{gap:10px}.duo.c.c3 .phone{width:31%}@media(max-width:899px){.duo.c.c3 .phone{width:31%}}.nextcue{margin:clamp(24px,4vw,48px) 0 0;font-size:15px;color:var(--muted)}.nextcue a{margin-left:8px;color:var(--blue);font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-underline-offset:4px}.lede a{color:var(--blue);text-underline-offset:4px}.phone.pl{aspect-ratio:900/1597}.phone.lp{aspect-ratio:390/844}.cmedia .wide{width:100%}.cmedia .wide img{width:100%;height:auto;border-radius:10px;box-shadow:0 20px 50px -30px rgba(0,0,0,.6)}</style>
+.keynote{margin-top:22px;padding-top:18px;border-top:1px solid var(--rule);font-size:15px;color:var(--body)}.keynote a{font-family:var(--mono);font-size:12.5px;color:var(--blue);margin-left:14px;white-space:nowrap;text-underline-offset:4px}.keynote i{font-family:var(--serif);font-size:1.05em}.cpanel .capt a{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#f4a3bb;text-underline-offset:5px}.cpanel .capt a:hover{color:#fff}.about .txt>p:first-child{font-size:clamp(18px,1.75vw,23px);line-height:1.5}.cmedia .wide{width:100%}.cmedia .wide img{width:100%;height:auto;border-radius:10px;box-shadow:0 20px 50px -30px rgba(0,0,0,.6)}.duo.c.c3{gap:10px}.duo.c.c3 .phone{width:31%}@media(max-width:899px){.duo.c.c3 .phone{width:31%}}.more{display:flex;flex-direction:column;align-items:center;gap:6px;width:max-content;margin:clamp(28px,4vw,52px) auto 0;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}.more i{font-style:normal;font-size:18px;color:var(--pink-ink,#B4204C)}.more:hover{color:var(--blue)}
+@media(prefers-reduced-motion:no-preference){.more i{animation:nudge 1.8s ease-in-out infinite}@keyframes nudge{50%{transform:translateY(6px)}}}
+.rail{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;display:none;flex-direction:column;gap:2px}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:10px;height:26px;text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rail a span{opacity:0;transform:translateX(6px);transition:opacity .2s,transform .2s;white-space:nowrap}
+.rail a:hover span,.rail a:focus-visible span,.rail a.on span{opacity:1;transform:none}
+.rail a.on{color:var(--blue)}
+.rail a i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--muted);background:transparent;transition:all .2s}
+.rail a.on i{background:#E8789A;border-color:#E8789A;transform:scale(1.35)}
+@media(min-width:1280px){.rail{display:flex}}
+.nextcue{margin:clamp(24px,4vw,48px) 0 0;font-size:15px;color:var(--muted)}.nextcue a{margin-left:8px;color:var(--blue);font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-underline-offset:4px}.lede a{color:var(--blue);text-underline-offset:4px}.phone.pl{aspect-ratio:900/1597}.phone.lp{aspect-ratio:390/844}.cmedia .wide{width:100%}.cmedia .wide img{width:100%;height:auto;border-radius:10px;box-shadow:0 20px 50px -30px rgba(0,0,0,.6)}</style>
 <title>Yenny Otero, Design Engineer</title></head>
 <body>
 <a class="skip" href="#work">Skip to work</a>
@@ -377,6 +387,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 </nav>
 </div></header>
 <main>
+<aside class="rail" aria-label="Page sections"><a href="#top"><span>Intro</span><i></i></a><a href="#work"><span>Work</span><i></i></a><a href="#code"><span>Built in code</span><i></i></a><a href="#about"><span>About</span><i></i></a><a href="#contact"><span>Contact</span><i></i></a></aside>
 <section class="hero" id="top"><div class="wrap hero-grid">
 <div>
 <p class="lab meta">Design Engineer · London · Fluent: ES, EN, IT, NO · Product · AI</p>
@@ -416,7 +427,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <div aria-hidden="true" class="dots"><span class="cnt">1 / 4</span><span class="pips"><i class="act"></i><i></i><i></i><i></i></span></div>
 </div>
 </div>
-<p class="nextcue rv">That is the work. Next, the code behind my recent products. <a href="#code">Open the bonnet ↓</a></p></div></section>
+<a class="more rv" href="#code"><span>Built in code</span><i aria-hidden="true">↓</i></a></div></section>
 <section id="code"><div class="wrap">
 <div class="head rv"><span class="lab">Built in code</span></div>
 <p class="lede rv">Opening the bonnet on my recent products: what I built, how, and what it means. My public code is on <a href="https://github.com/flamingointheweb" rel="noopener" target="_blank">GitHub</a>, and I’m happy to walk through the rest live.</p>
@@ -563,7 +574,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     if(N && IO){
       var secs = [['top','Intro'],['work','Work'],['code','Built in code'],['about','About'],['contact','Contact']];
       var els = secs.map(function(s){ return document.getElementById(s[0]); });
-      var sio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var i = els.indexOf(e.target); if(i > -1){ N.textContent = '0' + (i + 1); T.textContent = secs[i][1]; } } }); }, {rootMargin:'-45% 0px -50% 0px'});
+      var sio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var i = els.indexOf(e.target); if(i > -1){ N.textContent = '0' + (i + 1); T.textContent = secs[i][1]; var rl = document.querySelectorAll('.rail a'); for(var k=0;k<rl.length;k++){ rl[k].classList.toggle('on', k===i); } } } }); }, {rootMargin:'-45% 0px -50% 0px'});
       els.forEach(function(el){ if(el) sio.observe(el); });
     }
   })();
