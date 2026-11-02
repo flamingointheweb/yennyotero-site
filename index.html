@@ -293,6 +293,9 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
 .lines a,.lines span{font-family:var(--mono);font-size:14.5px;color:#c9d7e4;padding-block:8px}
 .lines a{text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:5px}
 .lines a:hover{color:#fff;text-decoration-color:#f4a3bb}
+body::before{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .25  0 0 0 .55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply;opacity:.22}
+.arch img,.postcard{filter:contrast(.96) saturate(.92)}
+.arch::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .25  0 0 0 .55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply;opacity:.5;border-radius:inherit}
 .postcard{margin:clamp(40px,6vw,80px) 0 0;height:clamp(200px,28vw,360px);border-radius:18px 18px 0 0;background:var(--paper) url(img/hero-london-pink-1600.webp?v=4) 70% 62%/cover no-repeat;box-shadow:0 -1px 0 rgba(255,255,255,.18)}
 footer{background:var(--blue)}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:22px 40px;font-size:13px;color:#9fb4c9;border-top:0}
