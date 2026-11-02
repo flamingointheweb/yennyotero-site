@@ -293,8 +293,7 @@ h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-
 .lines a,.lines span{font-family:var(--mono);font-size:14.5px;color:#c9d7e4;padding-block:8px}
 .lines a{text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:5px}
 .lines a:hover{color:#fff;text-decoration-color:#f4a3bb}
-body::before{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .25  0 0 0 .55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply;opacity:.22}
-.arch img,.postcard{filter:contrast(.96) saturate(.92)}
+.postcard{filter:contrast(.96) saturate(.92)}
 .arch::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .25  0 0 0 .55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply;opacity:.5;border-radius:inherit}
 .postcard{margin:clamp(40px,6vw,80px) 0 0;height:clamp(200px,28vw,360px);border-radius:18px 18px 0 0;background:var(--paper) url(img/hero-london-pink-1600.webp?v=4) 70% 62%/cover no-repeat;box-shadow:0 -1px 0 rgba(255,255,255,.18)}
 footer{background:var(--blue)}
@@ -305,8 +304,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .arch::after{content:"";position:absolute;inset:10px;border-radius:999px 999px 10px 10px;border:1px solid color-mix(in srgb,var(--blue) 35%,transparent);pointer-events:none}
 .arch img{position:absolute;left:-4%;top:0;width:108%;height:112%;max-width:none;object-fit:cover;object-position:100% 50%;transform:translate3d(var(--px,0px),var(--py,0px),0);mix-blend-mode:multiply;transition:transform .3s ease-out}
 @supports(animation-timeline:scroll()){
- @media(prefers-reduced-motion:no-preference){.arch img{animation:drift linear both;animation-timeline:scroll(root);animation-range:0 70vh}
- @keyframes drift{from{top:0}to{top:-9%}}}}
+ @media(prefers-reduced-motion:no-preference){.arch img{animation:pan linear both;animation-timeline:scroll(root);animation-range:0 90vh}
+ @keyframes pan{from{object-position:100% 50%;transform:scale(1)}to{object-position:6% 50%;transform:scale(1.04)}}}}
 @media(prefers-reduced-motion:no-preference){.arch{animation:arise 1.3s .1s cubic-bezier(.2,.8,.2,1) both}@keyframes arise{from{opacity:0;transform:translateY(30px) scale(.97)}}}
 @media(max-width:899px){.hero-grid{grid-template-columns:1fr;gap:34px}.arch{justify-self:center;width:min(100%,380px)}}
 
